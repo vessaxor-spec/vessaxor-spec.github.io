@@ -7,6 +7,33 @@
   <meta name="description" content="VESSAXOR builds persistent AI systems, governed orchestration, and autonomous digital intelligence." />
   <title>VESSAXOR — Living Systems Lab</title>
   <link rel="stylesheet" href="./styles.css" />
+  <style>
+    .flagship-art {
+      margin: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(1.75rem, 3.5vw, 3rem);
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      background: #05080a;
+      box-shadow: 0 24px 70px rgba(0,0,0,.28);
+    }
+    .flagship-art-teo { border-color: rgba(233,121,34,.36); }
+    .flagship-art-grox { border-color: rgba(40,183,233,.34); }
+    .flagship-art img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 2 / 1;
+      object-fit: cover;
+    }
+    .flagship-art figcaption {
+      padding: .7rem .9rem;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -77,42 +104,12 @@
           <h3>The Ever-Evolving<br />Orchestration</h3>
           <p>Responsibility before routing. Authority before execution. Verification before completion.</p>
         </div>
-
-        <figure aria-label="TEO visual overview" style="margin:clamp(1.75rem,4vw,3rem) 0 clamp(2rem,5vw,3.25rem);border:1px solid rgba(233,121,34,.35);background:#0c0f13;overflow:hidden">
-          <svg viewBox="0 0 1280 520" width="100%" role="img" aria-labelledby="teo-visual-title teo-visual-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;height:auto">
-            <title id="teo-visual-title">TEO orchestration visual</title>
-            <desc id="teo-visual-desc">Dark orange technical visual showing TEO as an orchestration control plane from responsibility through independent verification.</desc>
-            <defs>
-              <linearGradient id="teo-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#090b0e"/><stop offset="1" stop-color="#14181d"/></linearGradient>
-              <radialGradient id="teo-glow" cx="0" cy="0" r="1" gradientTransform="translate(180 110) rotate(18) scale(390 210)"><stop offset="0" stop-color="#e97922" stop-opacity=".32"/><stop offset="1" stop-color="#e97922" stop-opacity="0"/></radialGradient>
-            </defs>
-            <rect width="1280" height="520" fill="url(#teo-bg)"/>
-            <ellipse cx="180" cy="110" rx="390" ry="210" fill="url(#teo-glow)"/>
-            <g font-family="Arial, Helvetica, sans-serif">
-              <text x="64" y="76" font-size="16" letter-spacing="4" fill="#b6784c">01A / CONTROL PLANE</text>
-              <text x="64" y="156" font-size="92" font-weight="700" letter-spacing="-5" fill="#f1f0ec">TEO</text>
-              <text x="64" y="202" font-size="23" fill="#d8d6cf">Models change. Responsibilities, authority, and verification endure.</text>
-            </g>
-            <g transform="translate(64 288)" font-family="Arial, Helvetica, sans-serif">
-              <g><rect width="226" height="128" fill="#11151a" stroke="#e97922" stroke-opacity=".45"/><text x="22" y="30" font-size="13" letter-spacing="3" fill="#e97922">01</text><text x="22" y="72" font-size="27" fill="#f1f0ec">Responsibility</text><text x="22" y="102" font-size="15" fill="#959da7">ownership before routing</text></g>
-              <g transform="translate(260 0)"><rect width="226" height="128" fill="#11151a" stroke="#e97922" stroke-opacity=".28"/><text x="22" y="30" font-size="13" letter-spacing="3" fill="#b6784c">02</text><text x="22" y="72" font-size="27" fill="#f1f0ec">Capability</text><text x="22" y="102" font-size="15" fill="#959da7">what can actually execute</text></g>
-              <g transform="translate(520 0)"><rect width="226" height="128" fill="#11151a" stroke="#e97922" stroke-opacity=".28"/><text x="22" y="30" font-size="13" letter-spacing="3" fill="#b6784c">03</text><text x="22" y="72" font-size="27" fill="#f1f0ec">Routing</text><text x="22" y="102" font-size="15" fill="#959da7">model / provider / fallback</text></g>
-              <g transform="translate(780 0)"><rect width="356" height="128" fill="#1a130e" stroke="#e97922" stroke-opacity=".62"/><text x="22" y="30" font-size="13" letter-spacing="3" fill="#e97922">04</text><text x="22" y="72" font-size="27" fill="#f1f0ec">Independent verify</text><text x="22" y="102" font-size="15" fill="#d8d6cf">evidence gate before completion</text></g>
-              <g stroke="#d8d6cf" stroke-opacity=".24" stroke-width="2"><line x1="226" y1="64" x2="260" y2="64"/><line x1="486" y1="64" x2="520" y2="64"/><line x1="746" y1="64" x2="780" y2="64"/></g>
-            </g>
-            <g font-family="Arial, Helvetica, sans-serif" fill="#959da7"><text x="64" y="472" font-size="13" letter-spacing="3">RESPONSIBILITY → CAPABILITY → ROUTING → VERIFY</text><text x="1216" y="472" text-anchor="end" font-size="13" letter-spacing="3">VESSAXOR / TEO</text></g>
-          </svg>
+        <figure class="flagship-art flagship-art-teo" aria-labelledby="teo-art-caption">
+          <img src="./assets/visuals/teo-social-preview.webp"
+               alt="TEO social preview: VESSAXOR branding with an orange orchestration control-plane visual, describing governed, orchestrated, verified, and evolving operation."
+               width="1280" height="640" loading="lazy" decoding="async" />
+          <figcaption id="teo-art-caption">TEO / visual identity</figcaption>
         </figure>
-
-        <div class="teo-diagram architecture-diagram" aria-label="TEO orchestration flow">
-          <div class="diagram-step"><span>01</span><strong>Responsibility</strong><small>who should own the task</small></div>
-          <div class="diagram-link" aria-hidden="true"></div>
-          <div class="diagram-step"><span>02</span><strong>Capability</strong><small>what can actually execute it</small></div>
-          <div class="diagram-link" aria-hidden="true"></div>
-          <div class="diagram-step"><span>03</span><strong>Routing</strong><small>model / provider / fallback</small></div>
-          <div class="diagram-link" aria-hidden="true"></div>
-          <div class="diagram-step diagram-step-emphasis"><span>04</span><strong>Verify</strong><small>independent evidence gate</small></div>
-        </div>
         <footer class="spread-foot">
           <dl class="system-state-line">
             <div><dt>Release</dt><dd id="teo-release">—</dd></div>
@@ -131,43 +128,12 @@
           <h3>Command that<br />persists.</h3>
           <p>A persistent AI command environment where authority stays explicit and execution leaves evidence.</p>
         </div>
-
-        <figure aria-label="GroX visual overview" style="margin:clamp(1.75rem,4vw,3rem) 0 clamp(2rem,5vw,3.25rem);border:1px solid rgba(40,183,233,.32);background:#0c0f13;overflow:hidden">
-          <svg viewBox="0 0 1280 520" width="100%" role="img" aria-labelledby="grox-visual-title grox-visual-desc" xmlns="http://www.w3.org/2000/svg" style="display:block;height:auto">
-            <title id="grox-visual-title">GroX command vessel visual</title>
-            <desc id="grox-visual-desc">Dark cyan technical visual showing GroX command from Commander through GorXu, Divisions, and Crew with durable state.</desc>
-            <defs>
-              <linearGradient id="grox-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#090b0e"/><stop offset="1" stop-color="#11191e"/></linearGradient>
-              <radialGradient id="grox-glow" cx="0" cy="0" r="1" gradientTransform="translate(1080 110) rotate(160) scale(390 220)"><stop offset="0" stop-color="#28b7e9" stop-opacity=".31"/><stop offset="1" stop-color="#28b7e9" stop-opacity="0"/></radialGradient>
-            </defs>
-            <rect width="1280" height="520" fill="url(#grox-bg)"/>
-            <ellipse cx="1080" cy="110" rx="390" ry="220" fill="url(#grox-glow)"/>
-            <g font-family="Arial, Helvetica, sans-serif">
-              <text x="64" y="76" font-size="16" letter-spacing="4" fill="#63abc3">01B / PERSISTENT VESSEL</text>
-              <text x="64" y="156" font-size="92" font-weight="700" letter-spacing="-5" fill="#f1f0ec">GroX</text>
-              <text x="64" y="202" font-size="23" fill="#d8d6cf">Bounded authority. Durable state. Evidence-bearing execution.</text>
-            </g>
-            <g transform="translate(64 288)" font-family="Arial, Helvetica, sans-serif">
-              <g><rect width="210" height="128" fill="#11151a" stroke="#28b7e9" stroke-opacity=".25"/><text x="20" y="30" font-size="12" letter-spacing="3" fill="#63abc3">AUTHORITY</text><text x="20" y="72" font-size="27" fill="#f1f0ec">Commander</text><text x="20" y="102" font-size="15" fill="#959da7">ultimate human seat</text></g>
-              <g transform="translate(244 0)"><rect width="210" height="128" fill="#0e1b21" stroke="#28b7e9" stroke-opacity=".62"/><text x="20" y="30" font-size="12" letter-spacing="3" fill="#28b7e9">ORCHESTRATION</text><text x="20" y="72" font-size="27" fill="#f1f0ec">GorXu</text><text x="20" y="102" font-size="15" fill="#d8d6cf">operational intelligence</text></g>
-              <g transform="translate(488 0)"><rect width="210" height="128" fill="#11151a" stroke="#28b7e9" stroke-opacity=".25"/><text x="20" y="30" font-size="12" letter-spacing="3" fill="#63abc3">ORGANIZATION</text><text x="20" y="72" font-size="27" fill="#f1f0ec">Divisions</text><text x="20" y="102" font-size="15" fill="#959da7">operational areas</text></g>
-              <g transform="translate(732 0)"><rect width="210" height="128" fill="#11151a" stroke="#28b7e9" stroke-opacity=".25"/><text x="20" y="30" font-size="12" letter-spacing="3" fill="#63abc3">EXECUTION</text><text x="20" y="72" font-size="27" fill="#f1f0ec">Crew</text><text x="20" y="102" font-size="15" fill="#959da7">bounded delegated work</text></g>
-              <g transform="translate(976 0)"><rect width="160" height="128" fill="#10161a" stroke="#d8d6cf" stroke-opacity=".18"/><text x="18" y="30" font-size="12" letter-spacing="3" fill="#959da7">STATE</text><text x="18" y="70" font-size="24" fill="#f1f0ec">DURABLE</text><text x="18" y="101" font-size="14" fill="#959da7">memory / evidence</text></g>
-              <g stroke="#28b7e9" stroke-opacity=".35" stroke-width="2"><line x1="210" y1="64" x2="244" y2="64"/><line x1="454" y1="64" x2="488" y2="64"/><line x1="698" y1="64" x2="732" y2="64"/><line x1="942" y1="64" x2="976" y2="64"/></g>
-            </g>
-            <g font-family="Arial, Helvetica, sans-serif" fill="#959da7"><text x="64" y="472" font-size="13" letter-spacing="3">COMMANDER → GORXU → DIVISIONS → CREW</text><text x="1216" y="472" text-anchor="end" font-size="13" letter-spacing="3">VESSAXOR / GROX</text></g>
-          </svg>
+        <figure class="flagship-art flagship-art-grox" aria-labelledby="grox-art-caption">
+          <img src="./assets/visuals/grox-social-preview.webp"
+               alt="GroX social preview: VESSAXOR branding with a cyan persistent AI command-environment visual, describing persistence, bounded authority, evidence-bearing execution, and evolution."
+               width="1280" height="640" loading="lazy" decoding="async" />
+          <figcaption id="grox-art-caption">GroX / visual identity</figcaption>
         </figure>
-
-        <div class="grox-command" aria-label="GroX command structure">
-          <div class="command-level level-commander"><span>AUTHORITY</span><strong>Commander</strong></div>
-          <div class="command-line" aria-hidden="true"></div>
-          <div class="command-level level-gorxu"><span>ORCHESTRATION</span><strong>GorXu</strong></div>
-          <div class="command-line command-line-branch" aria-hidden="true"></div>
-          <div class="command-level level-divisions"><span>ORGANIZATION</span><strong>Divisions</strong></div>
-          <div class="command-line" aria-hidden="true"></div>
-          <div class="command-level level-crew"><span>EXECUTION</span><strong>Crew</strong></div>
-        </div>
         <footer class="spread-foot">
           <dl class="system-state-line">
             <div><dt>Release</dt><dd id="grox-release">—</dd></div>
@@ -198,14 +164,26 @@
         <h2 id="work-title">What is moving now.</h2>
       </header>
       <ol class="work-streams">
-        <li><span class="stream-index">01</span><div><p class="stream-label stream-label-teo">TEO</p><p id="teo-focus">Loading current public focus…</p></div></li>
-        <li><span class="stream-index">02</span><div><p class="stream-label stream-label-grox">GroX</p><p id="grox-focus">Loading current public focus…</p></div></li>
-        <li><span class="stream-index">03</span><div><p class="stream-label">RESEARCH</p><p id="research-focus">Loading current public focus…</p></div></li>
+        <li>
+          <span class="stream-index">01</span>
+          <div><p class="stream-label stream-label-teo">TEO</p><p id="teo-focus">Loading current public focus…</p></div>
+        </li>
+        <li>
+          <span class="stream-index">02</span>
+          <div><p class="stream-label stream-label-grox">GroX</p><p id="grox-focus">Loading current public focus…</p></div>
+        </li>
+        <li>
+          <span class="stream-index">03</span>
+          <div><p class="stream-label">RESEARCH</p><p id="research-focus">Loading current public focus…</p></div>
+        </li>
       </ol>
     </section>
 
     <section class="principles" id="principles" aria-labelledby="principles-title">
-      <header class="principles-heading"><p class="section-number">05 / PRINCIPLES</p><h2 id="principles-title">Architecture is a set<br />of refusals.</h2></header>
+      <header class="principles-heading">
+        <p class="section-number">05 / PRINCIPLES</p>
+        <h2 id="principles-title">Architecture is a set<br />of refusals.</h2>
+      </header>
       <div class="principles-list">
         <article><span>01</span><h3>The model is not the architecture.</h3><p>Intelligence should be replaceable without making the surrounding system disposable.</p></article>
         <article><span>02</span><h3>Competence does not imply authority.</h3><p>Capability and permission remain separate questions.</p></article>
@@ -221,7 +199,11 @@
     </section>
   </main>
 
-  <footer class="site-footer"><p>VESSAXOR / LIVING SYSTEMS LAB</p><p>Build for replacement. Govern for consequence.</p></footer>
+  <footer class="site-footer">
+    <p>VESSAXOR / LIVING SYSTEMS LAB</p>
+    <p>Build for replacement. Govern for consequence.</p>
+  </footer>
+
   <script src="./app.js" defer></script>
 </body>
 </html>
