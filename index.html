@@ -3,118 +3,184 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#090b0e" />
-  <meta name="description" content="VESSAXOR — persistent AI systems, governed orchestration, and autonomous digital intelligence." />
-  <title>VESSAXOR — Systems Portfolio</title>
+  <meta name="theme-color" content="#080a0d" />
+  <meta name="description" content="VESSAXOR builds persistent AI systems, governed orchestration, and autonomous digital intelligence." />
+  <title>VESSAXOR — Living Systems Lab</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" aria-label="Primary">
-    <a class="brand" href="#top" aria-label="VESSAXOR home">
-      <span class="brand-mark" aria-hidden="true">VX</span>
-      <span>VESSAXOR</span>
-    </a>
-    <nav class="nav-links" aria-label="Site navigation">
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="wordmark" href="#top" aria-label="VESSAXOR home">VESSAXOR</a>
+    <p class="header-note">Living Systems Lab</p>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Site navigation">
       <a href="#systems">Systems</a>
-      <a href="#work">Current Work</a>
-      <a href="#research">Research</a>
-      <a href="https://github.com/vessaxor-spec">GitHub</a>
+      <a href="#state">State</a>
+      <a href="#work">Current work</a>
+      <a href="#principles">Principles</a>
+      <a href="https://github.com/vessaxor-spec">GitHub ↗</a>
     </nav>
   </header>
 
   <main id="main">
-    <section class="hero" id="top">
-      <canvas id="signal-field" aria-hidden="true"></canvas>
-      <div class="hero-content">
-        <p class="eyebrow">SYSTEMS PORTFOLIO</p>
-        <h1>VESSAXOR</h1>
-        <p class="hero-lead">Building persistent AI systems, governed orchestration, and autonomous digital intelligence.</p>
-        <p class="hero-sub">Where models are components. Decisions, memory, verification, and execution form the system.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#systems">Explore flagship systems</a>
-          <a class="button" href="https://github.com/vessaxor-spec">Open GitHub profile</a>
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-index" aria-hidden="true">01 / IDENTITY</div>
+      <div class="hero-copy">
+        <p class="kicker">VESSAXOR / SYSTEMS PORTFOLIO</p>
+        <h1 id="hero-title">Systems should survive<br />the intelligence<br />inside them.</h1>
+        <p class="hero-deck">Persistent AI systems, governed orchestration, and autonomous digital intelligence built around authority, evidence, continuity, and replaceable models.</p>
+      </div>
+
+      <div class="system-map" aria-label="VESSAXOR architecture map">
+        <div class="map-axis map-axis-top" aria-hidden="true"></div>
+        <div class="map-axis map-axis-middle" aria-hidden="true"></div>
+        <div class="map-core">
+          <span class="map-label">VESSAXOR</span>
+          <strong>Architecture above models</strong>
+        </div>
+        <a class="map-node map-node-teo" href="#teo">
+          <span>01A</span>
+          <strong>TEO</strong>
+          <small>orchestration / authority / verification</small>
+        </a>
+        <a class="map-node map-node-grox" href="#grox">
+          <span>01B</span>
+          <strong>GroX</strong>
+          <small>command / state / execution</small>
+        </a>
+        <div class="map-evidence">
+          <span>shared invariant</span>
+          <strong>EVIDENCE</strong>
         </div>
       </div>
-      <div class="hero-principles" aria-label="VESSAXOR principles">
-        <span>GOVERNED</span>
-        <span>VERIFIABLE</span>
-        <span>PERSISTENT</span>
-        <span>EVOLVING</span>
+
+      <div class="hero-foot">
+        <p>Models are temporary.<br />Systems endure.</p>
+        <a href="#systems">Enter the systems ↓</a>
       </div>
     </section>
 
-    <section class="section" id="systems">
-      <div class="section-heading">
-        <p class="eyebrow">FLAGSHIP SYSTEMS</p>
-        <h2>Architectures built to outlast individual models.</h2>
-      </div>
+    <section class="systems" id="systems" aria-labelledby="systems-title">
+      <header class="section-intro">
+        <p class="section-number">02 / SYSTEMS</p>
+        <h2 id="systems-title">Two systems.<br />Different jobs.<br />One discipline.</h2>
+      </header>
 
-      <div class="system-grid">
-        <article class="system-card teo-card">
-          <div class="system-meta"><span class="system-code">TEO</span><span id="teo-release">release</span></div>
-          <h3>The Ever-Evolving Orchestration</h3>
-          <p>Vendor-neutral orchestration specification and runnable reference control plane for responsibility, routing, authority, fallback, and independent verification.</p>
-          <dl class="fact-grid">
-            <div><dt>State</dt><dd id="teo-status">reference_operational</dd></div>
-            <div><dt>Focus</dt><dd>Governed orchestration</dd></div>
+      <article class="system-spread system-spread-teo" id="teo">
+        <div class="spread-head">
+          <p class="system-id">TEO <span>01A</span></p>
+          <p class="system-role">CONTROL PLANE</p>
+        </div>
+        <div class="spread-title">
+          <h3>The Ever-Evolving<br />Orchestration</h3>
+          <p>Responsibility before routing. Authority before execution. Verification before completion.</p>
+        </div>
+        <div class="teo-diagram architecture-diagram" aria-label="TEO orchestration flow">
+          <div class="diagram-step"><span>01</span><strong>Responsibility</strong><small>who should own the task</small></div>
+          <div class="diagram-link" aria-hidden="true"></div>
+          <div class="diagram-step"><span>02</span><strong>Capability</strong><small>what can actually execute it</small></div>
+          <div class="diagram-link" aria-hidden="true"></div>
+          <div class="diagram-step"><span>03</span><strong>Routing</strong><small>model / provider / fallback</small></div>
+          <div class="diagram-link" aria-hidden="true"></div>
+          <div class="diagram-step diagram-step-emphasis"><span>04</span><strong>Verify</strong><small>independent evidence gate</small></div>
+        </div>
+        <footer class="spread-foot">
+          <dl class="system-state-line">
+            <div><dt>Release</dt><dd id="teo-release">—</dd></div>
+            <div><dt>State</dt><dd id="teo-status">—</dd></div>
           </dl>
-          <a class="text-link" href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">Inspect TEO on GitHub →</a>
-        </article>
+          <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">Inspect repository ↗</a>
+        </footer>
+      </article>
 
-        <article class="system-card grox-card">
-          <div class="system-meta"><span class="system-code">GROX</span><span id="grox-release">release</span></div>
-          <h3>Persistent AI Command Environment</h3>
-          <p>Independent AI Vessel built around bounded authority, durable state, evidence-bearing execution, recovery, and governed capability expansion.</p>
-          <dl class="fact-grid">
-            <div><dt>State</dt><dd id="grox-status">APEX QUALIFIED</dd></div>
-            <div><dt>Command</dt><dd>Commander → GorXu → Divisions → Crew</dd></div>
+      <article class="system-spread system-spread-grox" id="grox">
+        <div class="spread-head">
+          <p class="system-id">GroX <span>01B</span></p>
+          <p class="system-role">PERSISTENT VESSEL</p>
+        </div>
+        <div class="spread-title">
+          <h3>Command that<br />persists.</h3>
+          <p>A persistent AI command environment where authority stays explicit and execution leaves evidence.</p>
+        </div>
+        <div class="grox-command" aria-label="GroX command structure">
+          <div class="command-level level-commander"><span>AUTHORITY</span><strong>Commander</strong></div>
+          <div class="command-line" aria-hidden="true"></div>
+          <div class="command-level level-gorxu"><span>ORCHESTRATION</span><strong>GorXu</strong></div>
+          <div class="command-line command-line-branch" aria-hidden="true"></div>
+          <div class="command-level level-divisions"><span>ORGANIZATION</span><strong>Divisions</strong></div>
+          <div class="command-line" aria-hidden="true"></div>
+          <div class="command-level level-crew"><span>EXECUTION</span><strong>Crew</strong></div>
+        </div>
+        <footer class="spread-foot">
+          <dl class="system-state-line">
+            <div><dt>Release</dt><dd id="grox-release">—</dd></div>
+            <div><dt>State</dt><dd id="grox-status">—</dd></div>
           </dl>
-          <a class="text-link" href="https://github.com/vessaxor-spec/GroX">Inspect GroX on GitHub →</a>
-        </article>
+          <a href="https://github.com/vessaxor-spec/GroX">Inspect repository ↗</a>
+        </footer>
+      </article>
+    </section>
+
+    <section class="state" id="state" aria-labelledby="state-title">
+      <div class="state-heading">
+        <p class="section-number">03 / SYSTEM STATE</p>
+        <h2 id="state-title">Public claims should<br />carry a timestamp.</h2>
+      </div>
+      <div class="state-console" role="group" aria-label="Current public portfolio state">
+        <div class="console-topline"><span>PUBLIC STATE</span><span id="reviewed-at">reviewed —</span></div>
+        <div class="console-row console-row-teo"><span>TEO</span><strong id="state-teo-release">—</strong><em id="state-teo-status">—</em></div>
+        <div class="console-row console-row-grox"><span>GroX</span><strong id="state-grox-release">—</strong><em id="state-grox-status">—</em></div>
+        <div class="console-rule"></div>
+        <p>Generated from an allowlisted public state file and current GitHub Releases. The build fails when curated state exceeds its freshness window.</p>
       </div>
     </section>
 
-    <section class="section section-split" id="work">
-      <div class="section-heading sticky-heading">
-        <p class="eyebrow">CURRENT WORK</p>
-        <h2>Public focus, kept deliberately current.</h2>
-        <p class="muted" id="reviewed-at">Curated state</p>
-      </div>
-      <div class="work-list">
-        <article><span>01</span><div><h3>TEO</h3><p id="teo-focus">Loading current public focus…</p></div></article>
-        <article><span>02</span><div><h3>GroX</h3><p id="grox-focus">Loading current public focus…</p></div></article>
-        <article><span>03</span><div><h3>Research</h3><p id="research-focus">Loading current public focus…</p></div></article>
+    <section class="current-work" id="work" aria-labelledby="work-title">
+      <header class="work-heading">
+        <p class="section-number">04 / CURRENT WORK</p>
+        <h2 id="work-title">What is moving now.</h2>
+      </header>
+      <ol class="work-streams">
+        <li>
+          <span class="stream-index">01</span>
+          <div><p class="stream-label stream-label-teo">TEO</p><p id="teo-focus">Loading current public focus…</p></div>
+        </li>
+        <li>
+          <span class="stream-index">02</span>
+          <div><p class="stream-label stream-label-grox">GroX</p><p id="grox-focus">Loading current public focus…</p></div>
+        </li>
+        <li>
+          <span class="stream-index">03</span>
+          <div><p class="stream-label">RESEARCH</p><p id="research-focus">Loading current public focus…</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="principles" id="principles" aria-labelledby="principles-title">
+      <header class="principles-heading">
+        <p class="section-number">05 / PRINCIPLES</p>
+        <h2 id="principles-title">Architecture is a set<br />of refusals.</h2>
+      </header>
+      <div class="principles-list">
+        <article><span>01</span><h3>The model is not the architecture.</h3><p>Intelligence should be replaceable without making the surrounding system disposable.</p></article>
+        <article><span>02</span><h3>Competence does not imply authority.</h3><p>Capability and permission remain separate questions.</p></article>
+        <article><span>03</span><h3>Evidence before confidence.</h3><p>Plausibility matters. Observable proof matters more.</p></article>
+        <article><span>04</span><h3>Evolution must not silently expand power.</h3><p>Better systems can become more capable without becoming less governed.</p></article>
       </div>
     </section>
 
-    <section class="section" id="research">
-      <div class="section-heading">
-        <p class="eyebrow">RESEARCH THEMES</p>
-        <h2>Three recurring problems define the portfolio.</h2>
-      </div>
-      <div class="theme-grid">
-        <article><span>01</span><h3>Persistent Intelligence</h3><p>Continuity across sessions, runtimes, models, and infrastructure without confusing memory with truth.</p></article>
-        <article><span>02</span><h3>Governed Autonomy</h3><p>Meaningful agent independence without surrendering authority boundaries, evidence, reversibility, or human sovereignty.</p></article>
-        <article><span>03</span><h3>Verifiable Evolution</h3><p>Systems that improve routing, memory, tools, and reasoning without silently expanding power or inheriting trust they have not re-earned.</p></article>
-      </div>
-    </section>
-
-    <section class="section principles" id="principles">
-      <p class="eyebrow">SELECTED PRINCIPLES</p>
-      <div class="principle-list">
-        <p><strong>The model is not the architecture.</strong> Intelligence should be replaceable without making the surrounding system disposable.</p>
-        <p><strong>Competence does not imply authority.</strong> Capability and permission are separate questions.</p>
-        <p><strong>Evidence before confidence.</strong> Plausibility matters; observable proof matters more.</p>
-        <p><strong>Evolution must not silently expand power.</strong> Better systems should become more capable without becoming less governed.</p>
-      </div>
+    <section class="github-exit" aria-labelledby="github-title">
+      <p class="section-number">06 / SOURCE</p>
+      <h2 id="github-title">Read the systems,<br />not the pitch.</h2>
+      <a class="source-link" href="https://github.com/vessaxor-spec">github.com/vessaxor-spec <span>↗</span></a>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p><strong>Build for replacement. Govern for consequence. Keep the human seat explicit.</strong></p>
-    <p>VESSAXOR · GitHub-native systems portfolio</p>
+    <p>VESSAXOR / LIVING SYSTEMS LAB</p>
+    <p>Build for replacement. Govern for consequence.</p>
   </footer>
 
   <script src="./app.js" defer></script>
