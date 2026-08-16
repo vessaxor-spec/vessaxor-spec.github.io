@@ -35,7 +35,7 @@ Completion standard: an item is complete only when the implementation exists on 
 - [x] P02 Add `srcset`/`sizes` responsive image delivery.
 - [x] P03 Mark hero as high-priority LCP media with `fetchpriority="high"`.
 - [x] P04 Disable mobile header backdrop-filter cost.
-- [ ] P05 Measure production Lighthouse/Core Web Vitals after deployment and record evidence here.
+- [x] P05 Measure the deployed production site with Google Lighthouse and record mobile/desktop evidence. Real-user CrUX field data is not inferred or claimed from lab results.
 
 ## Phase 5 — Discoverability, supply chain, and regression control
 
@@ -52,16 +52,25 @@ Completion standard: an item is complete only when the implementation exists on 
 - [x] G01 PR build succeeds on the exact reviewed head.
 - [x] G02 Desktop full-page render reviewed with no overflow, clipping, broken content, or hierarchy regression.
 - [x] G03 Mobile full-page render reviewed with no overflow, clipping, broken content, or interaction regression.
-- [ ] G04 Production Pages deployment succeeds.
-- [ ] G05 Production Lighthouse/performance measurement recorded; any material failures remediated before closing this program.
+- [x] G04 Production Pages deployment succeeds.
+- [x] G05 Production Lighthouse/performance measurement recorded with no material lab-performance, accessibility, best-practices, or SEO failure requiring further remediation.
 
 ## Evidence
 
 - PR run #16 correctly failed when the proposed `ffmpeg` runtime dependency was absent on the GitHub Ubuntu 24.04 runner. The dependency was not bypassed or installed ad hoc.
-- The media path was redesigned and locally proven with `scripts/build_site_media.mjs`: Node built-ins drive headless Chrome through the Chrome DevTools Protocol, embedding the approved PNG source directly into the capture document. No npm, Python imaging library, system package installation, localhost content navigation, or external media service is required.
+- The media path was redesigned and locally proven with `scripts/build_site_media.mjs`: Node built-ins drive headless Chrome through the Chrome DevTools Protocol, embedding the approved PNG source directly into the capture document. No npm, Python imaging library, system package installation, localhost content navigation, or external media service is required in the production build path.
 - A subsequent runner exposed only a temporary Chrome-profile deletion race after all media had already generated. Lifecycle handling was corrected with browser shutdown, bounded cleanup retries, and non-critical ephemeral-profile cleanup handling rather than weakening any site validation.
 - PR run #30 passed source-state refresh, digest-pinned banner sync, responsive-media generation, expanded static validation, JavaScript syntax checks, full-page render capture, and render-artifact upload.
 - CI full-page desktop evidence: 1440×6137; all VESSAXOR/TEO/GroX visuals loaded, no horizontal overflow, clipping, missing sections, or hierarchy regression observed.
 - CI full-page mobile evidence: 390×7049; all VESSAXOR/TEO/GroX visuals loaded, no horizontal overflow, broken stacking, missing sections, or interaction-layout regression observed.
+- Production workflow run #32 (`31970482935`) completed successfully after PR #5: validation, responsive-media generation, Pages artifact construction, render review, and GitHub Pages deployment all passed.
+- An initial official PageSpeed Insights API attempt in evidence run #33 was rejected with HTTP 429 because Google's shared unkeyed API project had exhausted its daily query quota. This was recorded as an external quota failure, not treated as site evidence and not bypassed with fabricated results.
+- Google Lighthouse `13.4.1` was then run directly against the live production URL in evidence run #35 (`31970834269`), pinned to the official release for the one-time measurement.
+- Lighthouse mobile: Performance **100**, Accessibility **100**, Best Practices **100**, SEO **100**; FCP **0.823 s**, LCP **1.071 s**, Speed Index **0.823 s**, TBT **0 ms**, CLS **0.000**.
+- Lighthouse desktop: Performance **100**, Accessibility **100**, Best Practices **100**, SEO **100**; FCP **0.220 s**, LCP **0.284 s**, Speed Index **0.220 s**, TBT **0 ms**, CLS **0.000**.
+- Lighthouse is controlled lab evidence. CrUX real-user field metrics, including field INP, are not supplied by this evidence path and are therefore not claimed. Absence of a real-user claim is not converted into synthetic field data.
 - The build-time source visual sync remains fail-closed on exact dimensions and approved SHA-256 digests for VESSAXOR, TEO, and GroX source banners.
-- Production deployment and post-deploy performance evidence remain open and are required before this remediation program is closed.
+
+## Program state
+
+**CLOSED — all approved senior-principal audit remediation items and final evidence gates are complete as of 16 Aug 2026.**
