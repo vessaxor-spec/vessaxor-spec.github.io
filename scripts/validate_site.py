@@ -48,8 +48,14 @@ def webp_dimensions(path: Path) -> tuple[int, int]:
     if len(payload) < 30 or payload[:4] != b"RIFF" or payload[8:12] != b"WEBP":
         raise RuntimeError(f"{path} is not a valid WebP")
     chunk = payload[12:16]
+    if chunk == b"VP8X":
+        if len(payload) < 30:
+            raise RuntimeError(f"{path} has a truncated VP8X header")
+        width = 1 + int.from_bytes(payload[24:27], "little")
+        height = 1 + int.from_bytes(payload[27:30], "little")
+        return width, height
     if chunk == b"VP8 ":
-        if payload[23:26] != b"\x9d\x01\x2a":
+        if len(payload) < 30 or payload[23:26] != b"\x9d\x01\x2a":
             raise RuntimeError(f"{path} has an invalid VP8 frame header")
         width = int.from_bytes(payload[26:28], "little") & 0x3FFF
         height = int.from_bytes(payload[28:30], "little") & 0x3FFF
