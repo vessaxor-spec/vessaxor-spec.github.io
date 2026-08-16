@@ -106,6 +106,21 @@ async function capture(cdp, width, viewportHeight, output) {
   console.log(`captured ${output}: ${captureWidth}x${captureHeight}`);
 }
 
+async function cleanupChrome(child, profileDir) {
+  if (child.exitCode == null) child.kill('SIGTERM');
+  if (child.exitCode == null) {
+    await Promise.race([
+      new Promise(resolve => child.once('exit', resolve)),
+      new Promise(resolve => setTimeout(resolve, 3000))
+    ]);
+  }
+  try {
+    await rm(profileDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+  } catch (error) {
+    console.warn(`Temporary Chrome profile cleanup deferred: ${error.message}`);
+  }
+}
+
 async function main() {
   const chrome = await findChrome();
   const { child, profileDir, port } = await launchChrome(chrome);
@@ -117,15 +132,11 @@ async function main() {
       await capture(cdp, 1440, 1000, 'render-desktop.png');
       await capture(cdp, 390, 844, 'render-mobile.png');
     } finally {
+      try { await cdp('Browser.close'); } catch {}
       socket.close();
     }
   } finally {
-    child.kill('SIGTERM');
-    await new Promise(resolve => {
-      if (child.exitCode != null) resolve();
-      else child.once('exit', resolve);
-    });
-    await rm(profileDir, { recursive: true, force: true });
+    await cleanupChrome(child, profileDir);
   }
 }
 
