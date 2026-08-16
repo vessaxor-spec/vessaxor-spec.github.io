@@ -50,9 +50,23 @@ jobs:
           done
           node scripts/capture_site_render.mjs http://127.0.0.1:8000/
 
-      - name: Measure live production PageSpeed
+      - name: Measure live production with Lighthouse 13.4.1
         if: github.event_name == 'pull_request'
-        run: python3 scripts/measure_pagespeed.py
+        run: |
+          npx --yes lighthouse@13.4.1 https://vessaxor-spec.github.io/ \
+            --quiet \
+            --chrome-flags="--headless=new --no-sandbox --disable-gpu" \
+            --only-categories=performance,accessibility,best-practices,seo \
+            --output=json \
+            --output-path=lighthouse-mobile.json
+          npx --yes lighthouse@13.4.1 https://vessaxor-spec.github.io/ \
+            --quiet \
+            --chrome-flags="--headless=new --no-sandbox --disable-gpu" \
+            --only-categories=performance,accessibility,best-practices,seo \
+            --preset=desktop \
+            --output=json \
+            --output-path=lighthouse-desktop.json
+          python3 scripts/summarize_lighthouse.py
 
       - name: Upload render and performance evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -61,7 +75,9 @@ jobs:
           path: |
             render-desktop.png
             render-mobile.png
-            pagespeed-report.json
+            lighthouse-mobile.json
+            lighthouse-desktop.json
+            lighthouse-summary.json
           if-no-files-found: error
           retention-days: 14
 
