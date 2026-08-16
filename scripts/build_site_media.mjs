@@ -117,6 +117,21 @@ async function capture(cdp, imageBase64, width, height, format, quality, output,
   console.log(`built ${output.replace(ROOT, '')}`);
 }
 
+async function cleanupChrome(child, profileDir) {
+  if (child.exitCode == null) child.kill('SIGTERM');
+  if (child.exitCode == null) {
+    await Promise.race([
+      new Promise(resolve => child.once('exit', resolve)),
+      new Promise(resolve => setTimeout(resolve, 3000))
+    ]);
+  }
+  try {
+    await rm(profileDir, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
+  } catch (error) {
+    console.warn(`Temporary Chrome profile cleanup deferred: ${error.message}`);
+  }
+}
+
 async function main() {
   const sourcePayloads = new Map();
   for (const file of SOURCE_FILES) {
@@ -150,15 +165,11 @@ async function main() {
         true
       );
     } finally {
+      try { await cdp('Browser.close'); } catch {}
       socket.close();
     }
   } finally {
-    child.kill('SIGTERM');
-    await new Promise(resolve => {
-      if (child.exitCode != null) resolve();
-      else child.once('exit', resolve);
-    });
-    await rm(profileDir, { recursive: true, force: true });
+    await cleanupChrome(child, profileDir);
   }
 }
 
