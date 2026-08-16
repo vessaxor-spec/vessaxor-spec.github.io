@@ -3,37 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#080a0d" />
-  <meta name="description" content="VESSAXOR builds persistent AI systems, governed orchestration, and autonomous digital intelligence." />
+  <meta name="theme-color" content="#07090c" />
+  <meta name="description" content="VESSAXOR Living Systems Lab: persistent AI systems, governed orchestration, evidence-bearing execution, and verifiable evolution." />
+  <meta property="og:title" content="VESSAXOR — Living Systems Lab" />
+  <meta property="og:description" content="Public systems portfolio for TEO and GroX: architecture above models, bounded authority, persistent continuity, and evidence-bearing execution." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vessaxor-spec.github.io/" />
+  <meta property="og:image" content="https://vessaxor-spec.github.io/assets/visuals/vessaxor-hero.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://vessaxor-spec.github.io/" />
   <title>VESSAXOR — Living Systems Lab</title>
   <link rel="stylesheet" href="./styles.css" />
-  <style>
-    .flagship-art {
-      margin: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(1.75rem, 3.5vw, 3rem);
-      overflow: hidden;
-      border: 1px solid var(--line-strong);
-      background: #05080a;
-      box-shadow: 0 24px 70px rgba(0,0,0,.28);
-    }
-    .flagship-art-teo { border-color: rgba(233,121,34,.36); }
-    .flagship-art-grox { border-color: rgba(40,183,233,.34); }
-    .flagship-art img {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 2 / 1;
-      object-fit: cover;
-    }
-    .flagship-art figcaption {
-      padding: .7rem .9rem;
-      border-top: 1px solid var(--line);
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: .58rem;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -44,6 +24,7 @@
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" class="site-nav" aria-label="Site navigation">
       <a href="#systems">Systems</a>
+      <a href="#relation">Relation</a>
       <a href="#state">State</a>
       <a href="#work">Current work</a>
       <a href="#principles">Principles</a>
@@ -53,155 +34,269 @@
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-index" aria-hidden="true">01 / IDENTITY</div>
-      <div class="hero-copy">
-        <p class="kicker">VESSAXOR / SYSTEMS PORTFOLIO</p>
-        <h1 id="hero-title">Systems should survive<br />the intelligence<br />inside them.</h1>
-        <p class="hero-deck">Persistent AI systems, governed orchestration, and autonomous digital intelligence built around authority, evidence, continuity, and replaceable models.</p>
+      <figure class="hero-art">
+        <img
+          src="./assets/visuals/vessaxor-hero.png"
+          alt="VESSAXOR Living Systems Lab: orange and cyan technical systems joined across a dark architecture field."
+          width="2172"
+          height="724"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="hero-intro">
+        <div>
+          <p class="eyebrow">01 / IDENTITY</p>
+          <p class="kicker">PUBLIC SYSTEMS PORTFOLIO</p>
+        </div>
+        <div class="hero-copy">
+          <h1 id="hero-title">Architecture above models.</h1>
+          <p class="hero-deck">
+            VESSAXOR builds persistent AI systems where models remain replaceable,
+            authority stays explicit, execution produces evidence, and continuity
+            survives beyond a single session.
+          </p>
+          <div class="hero-actions" aria-label="Primary portfolio links">
+            <a class="action action-primary" href="#systems">Explore the systems ↓</a>
+            <a class="action" href="https://github.com/vessaxor-spec">Open GitHub ↗</a>
+          </div>
+        </div>
       </div>
 
-      <div class="system-map" aria-label="VESSAXOR architecture map">
-        <div class="map-axis map-axis-top" aria-hidden="true"></div>
-        <div class="map-axis map-axis-middle" aria-hidden="true"></div>
-        <div class="map-core">
-          <span class="map-label">VESSAXOR</span>
-          <strong>Architecture above models</strong>
-        </div>
-        <a class="map-node map-node-teo" href="#teo">
-          <span>01A</span>
-          <strong>TEO</strong>
-          <small>orchestration / authority / verification</small>
-        </a>
-        <a class="map-node map-node-grox" href="#grox">
-          <span>01B</span>
-          <strong>GroX</strong>
-          <small>command / state / execution</small>
-        </a>
-        <div class="map-evidence">
-          <span>shared invariant</span>
-          <strong>EVIDENCE</strong>
-        </div>
-      </div>
-
-      <div class="hero-foot">
-        <p>Models are temporary.<br />Systems endure.</p>
-        <a href="#systems">Enter the systems ↓</a>
+      <div class="hero-ledger" aria-label="Portfolio scope">
+        <div><span>Public systems</span><strong>02</strong></div>
+        <div><span>Flagships</span><strong>TEO / GroX</strong></div>
+        <div><span>Shared discipline</span><strong>Authority / Evidence / Continuity</strong></div>
       </div>
     </section>
 
-    <section class="systems" id="systems" aria-labelledby="systems-title">
-      <header class="section-intro">
-        <p class="section-number">02 / SYSTEMS</p>
-        <h2 id="systems-title">Two systems.<br />Different jobs.<br />One discipline.</h2>
+    <section class="systems section-shell" id="systems" aria-labelledby="systems-title">
+      <header class="section-heading">
+        <p class="eyebrow">02 / FLAGSHIP SYSTEMS</p>
+        <div>
+          <h2 id="systems-title">Two systems.<br />Different jobs.</h2>
+          <p class="section-deck">
+            TEO and GroX are independent public systems. They share a design discipline,
+            not a command hierarchy.
+          </p>
+        </div>
       </header>
 
-      <article class="system-spread system-spread-teo" id="teo">
-        <div class="spread-head">
-          <p class="system-id">TEO <span>01A</span></p>
-          <p class="system-role">CONTROL PLANE</p>
-        </div>
-        <div class="spread-title">
-          <h3>The Ever-Evolving<br />Orchestration</h3>
-          <p>Responsibility before routing. Authority before execution. Verification before completion.</p>
-        </div>
-        <figure class="flagship-art flagship-art-teo" aria-labelledby="teo-art-caption">
-          <img src="./assets/visuals/teo-social-preview-v2.webp"
-               alt="TEO social preview: VESSAXOR branding with an orange orchestration control-plane visual, describing governed, orchestrated, verified, and evolving operation."
-               width="600" height="300" loading="lazy" decoding="async" />
-          <figcaption id="teo-art-caption">TEO / visual identity</figcaption>
-        </figure>
-        <footer class="spread-foot">
-          <dl class="system-state-line">
-            <div><dt>Release</dt><dd id="teo-release">—</dd></div>
-            <div><dt>State</dt><dd id="teo-status">—</dd></div>
+      <article class="system-panel system-panel-teo" id="teo">
+        <a class="system-art" href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-" aria-label="Open TEO repository">
+          <img
+            src="./assets/visuals/teo-banner.png"
+            alt="The Ever-Evolving Orchestration high-resolution banner."
+            width="2172"
+            height="724"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+
+        <div class="system-body">
+          <div class="system-identity">
+            <p class="system-code">01A / CONTROL PLANE</p>
+            <h3>The Ever-Evolving Orchestration</h3>
+            <p class="system-thesis">Models evolve. Responsibilities endure.</p>
+          </div>
+
+          <p class="system-description">
+            A vendor-neutral orchestration specification and runnable reference control plane
+            for deciding which intelligence should do the work, under what authority, with
+            which fallback, and with what verification.
+          </p>
+
+          <dl class="system-meta">
+            <div><dt>Release</dt><dd id="teo-release">v1.0.0</dd></div>
+            <div><dt>State</dt><dd id="teo-status">reference_operational</dd></div>
+            <div><dt>Core path</dt><dd>Responsibility → capability → implementation → verification</dd></div>
           </dl>
-          <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">Inspect repository ↗</a>
-        </footer>
+
+          <div class="system-links">
+            <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">Repository ↗</a>
+            <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-/blob/main/docs/stewardship/progress-tracker.md">Progress ↗</a>
+            <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-/blob/main/docs/stewardship/roadmap.md">Roadmap ↗</a>
+          </div>
+        </div>
       </article>
 
-      <article class="system-spread system-spread-grox" id="grox">
-        <div class="spread-head">
-          <p class="system-id">GroX <span>01B</span></p>
-          <p class="system-role">PERSISTENT VESSEL</p>
-        </div>
-        <div class="spread-title">
-          <h3>Command that<br />persists.</h3>
-          <p>A persistent AI command environment where authority stays explicit and execution leaves evidence.</p>
-        </div>
-        <figure class="flagship-art flagship-art-grox" aria-labelledby="grox-art-caption">
-          <img src="./assets/visuals/grox-social-preview-v2.webp"
-               alt="GroX social preview: VESSAXOR branding with a cyan persistent AI command-environment visual, describing persistence, bounded authority, evidence-bearing execution, and evolution."
-               width="600" height="300" loading="lazy" decoding="async" />
-          <figcaption id="grox-art-caption">GroX / visual identity</figcaption>
-        </figure>
-        <footer class="spread-foot">
-          <dl class="system-state-line">
-            <div><dt>Release</dt><dd id="grox-release">—</dd></div>
-            <div><dt>State</dt><dd id="grox-status">—</dd></div>
+      <article class="system-panel system-panel-grox" id="grox">
+        <a class="system-art" href="https://github.com/vessaxor-spec/GroX" aria-label="Open GroX repository">
+          <img
+            src="./assets/visuals/grox-banner.png"
+            alt="GroX persistent AI command environment high-resolution banner."
+            width="2172"
+            height="724"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+
+        <div class="system-body">
+          <div class="system-identity">
+            <p class="system-code">01B / PERSISTENT VESSEL</p>
+            <h3>GroX</h3>
+            <p class="system-thesis">Persistent AI command environment.</p>
+          </div>
+
+          <p class="system-description">
+            An independent Vessel for translating Commander intent into bounded Missions,
+            durable execution, attributable evidence, independent verification, and
+            recoverable continuity.
+          </p>
+
+          <dl class="system-meta">
+            <div><dt>Release</dt><dd id="grox-release">v0.7.1</dd></div>
+            <div><dt>State</dt><dd id="grox-status">APEX QUALIFIED</dd></div>
+            <div><dt>Command</dt><dd>Commander → Pilot GorXu → Divisions → Standing Crew</dd></div>
           </dl>
-          <a href="https://github.com/vessaxor-spec/GroX">Inspect repository ↗</a>
-        </footer>
+
+          <div class="system-links">
+            <a href="https://github.com/vessaxor-spec/GroX">Repository ↗</a>
+            <a href="https://github.com/vessaxor-spec/GroX/blob/main/docs/stewardship/progress-tracker.md">Progress ↗</a>
+            <a href="https://github.com/vessaxor-spec/GroX/blob/main/docs/stewardship/ROADMAP.md">Roadmap ↗</a>
+          </div>
+        </div>
       </article>
     </section>
 
-    <section class="state" id="state" aria-labelledby="state-title">
-      <div class="state-heading">
-        <p class="section-number">03 / SYSTEM STATE</p>
-        <h2 id="state-title">Public claims should<br />carry a timestamp.</h2>
-      </div>
-      <div class="state-console" role="group" aria-label="Current public portfolio state">
-        <div class="console-topline"><span>PUBLIC STATE</span><span id="reviewed-at">reviewed —</span></div>
-        <div class="console-row console-row-teo"><span>TEO</span><strong id="state-teo-release">—</strong><em id="state-teo-status">—</em></div>
-        <div class="console-row console-row-grox"><span>GroX</span><strong id="state-grox-release">—</strong><em id="state-grox-status">—</em></div>
-        <div class="console-rule"></div>
-        <p>Generated from an allowlisted public state file and current GitHub Releases. The build fails when curated state exceeds its freshness window.</p>
-      </div>
-    </section>
-
-    <section class="current-work" id="work" aria-labelledby="work-title">
-      <header class="work-heading">
-        <p class="section-number">04 / CURRENT WORK</p>
-        <h2 id="work-title">What is moving now.</h2>
+    <section class="relation section-shell" id="relation" aria-labelledby="relation-title">
+      <header class="section-heading compact-heading">
+        <p class="eyebrow">03 / SYSTEM RELATION</p>
+        <div>
+          <h2 id="relation-title">Independent by architecture.<br />Aligned by discipline.</h2>
+        </div>
       </header>
-      <ol class="work-streams">
+
+      <div class="relation-grid">
+        <article class="relation-card relation-card-teo">
+          <span>TEO</span>
+          <h3>Who should do the work?</h3>
+          <p>Responsibility, capability, effective risk, routing, fallback, authority, and independent verification.</p>
+        </article>
+
+        <div class="relation-junction" aria-hidden="true">
+          <span>SHARED</span>
+          <strong>Evidence<br />Bounded authority<br />Replaceable intelligence</strong>
+        </div>
+
+        <article class="relation-card relation-card-grox">
+          <span>GroX</span>
+          <h3>How does intent become durable action?</h3>
+          <p>Missions, Mission Orders, Crew, governed tools, persistent state, recovery, and attributable execution evidence.</p>
+        </article>
+      </div>
+
+      <p class="relation-note">
+        Neither system is presented as a command layer inside the other. Their public relationship
+        is architectural kinship: common constraints around authority, evidence, verification,
+        continuity, and controlled evolution.
+      </p>
+    </section>
+
+    <section class="state section-shell" id="state" aria-labelledby="state-title">
+      <header class="section-heading compact-heading">
+        <p class="eyebrow">04 / PUBLIC STATE</p>
+        <div>
+          <h2 id="state-title">Claims should carry state.</h2>
+          <p class="section-deck">
+            Release metadata is refreshed from GitHub. Curated work focus is pulled from the
+            allowlisted public profile state and fails closed when stale.
+          </p>
+        </div>
+      </header>
+
+      <div class="state-board">
+        <div class="state-board-head">
+          <span>PORTFOLIO SNAPSHOT</span>
+          <span id="reviewed-at">reviewed 16 Aug 2026</span>
+        </div>
+        <div class="state-row state-row-teo">
+          <span>TEO</span>
+          <strong id="state-teo-release">v1.0.0</strong>
+          <em id="state-teo-status">reference_operational</em>
+        </div>
+        <div class="state-row state-row-grox">
+          <span>GroX</span>
+          <strong id="state-grox-release">v0.7.1</strong>
+          <em id="state-grox-status">APEX QUALIFIED</em>
+        </div>
+        <div class="state-board-foot">
+          <span>Generated</span>
+          <span id="generated-at">build-time public data</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="current-work section-shell" id="work" aria-labelledby="work-title">
+      <header class="section-heading">
+        <p class="eyebrow">05 / CURRENT WORK</p>
+        <div>
+          <h2 id="work-title">What is moving now.</h2>
+        </div>
+      </header>
+
+      <ol class="work-list">
         <li>
-          <span class="stream-index">01</span>
-          <div><p class="stream-label stream-label-teo">TEO</p><p id="teo-focus">Loading current public focus…</p></div>
+          <span class="work-index">01</span>
+          <div>
+            <p class="work-label work-label-teo">TEO</p>
+            <p id="teo-focus">Evidence-governed live execution expansion, with provider-backed controlled documentation replay evidence as the next gate.</p>
+          </div>
         </li>
         <li>
-          <span class="stream-index">02</span>
-          <div><p class="stream-label stream-label-grox">GroX</p><p id="grox-focus">Loading current public focus…</p></div>
+          <span class="work-index">02</span>
+          <div>
+            <p class="work-label work-label-grox">GroX</p>
+            <p id="grox-focus">Post-Apex Operational Evolution Program 001, with A6 longitudinal operational drift analysis as the next approved stage.</p>
+          </div>
         </li>
         <li>
-          <span class="stream-index">03</span>
-          <div><p class="stream-label">RESEARCH</p><p id="research-focus">Loading current public focus…</p></div>
+          <span class="work-index">03</span>
+          <div>
+            <p class="work-label">RESEARCH</p>
+            <p id="research-focus">Persistent continuity, bounded authority, evidence-bearing execution, and verification as system properties rather than model features.</p>
+          </div>
         </li>
       </ol>
     </section>
 
-    <section class="principles" id="principles" aria-labelledby="principles-title">
-      <header class="principles-heading">
-        <p class="section-number">05 / PRINCIPLES</p>
-        <h2 id="principles-title">Architecture is a set<br />of refusals.</h2>
+    <section class="principles section-shell" id="principles" aria-labelledby="principles-title">
+      <header class="section-heading">
+        <p class="eyebrow">06 / DESIGN DISCIPLINE</p>
+        <div>
+          <h2 id="principles-title">Architecture is also what the system refuses to do.</h2>
+        </div>
       </header>
-      <div class="principles-list">
+
+      <div class="principles-grid">
         <article><span>01</span><h3>The model is not the architecture.</h3><p>Intelligence should be replaceable without making the surrounding system disposable.</p></article>
-        <article><span>02</span><h3>Competence does not imply authority.</h3><p>Capability and permission remain separate questions.</p></article>
+        <article><span>02</span><h3>Competence does not imply authority.</h3><p>Knowing how to act does not grant permission to act.</p></article>
         <article><span>03</span><h3>Evidence before confidence.</h3><p>Plausibility matters. Observable proof matters more.</p></article>
-        <article><span>04</span><h3>Evolution must not silently expand power.</h3><p>Better systems can become more capable without becoming less governed.</p></article>
+        <article><span>04</span><h3>Failure must not widen power.</h3><p>Fallback, retry, recovery, and replanning must preserve authority boundaries.</p></article>
+        <article><span>05</span><h3>Continuity is infrastructure.</h3><p>State, memory, recovery, and provenance should survive beyond a model session.</p></article>
+        <article><span>06</span><h3>Evolution must re-earn trust.</h3><p>More capable systems should not silently become less governed.</p></article>
       </div>
     </section>
 
-    <section class="github-exit" aria-labelledby="github-title">
-      <p class="section-number">06 / SOURCE</p>
-      <h2 id="github-title">Read the systems,<br />not the pitch.</h2>
-      <a class="source-link" href="https://github.com/vessaxor-spec">github.com/vessaxor-spec <span>↗</span></a>
+    <section class="source-exit section-shell" aria-labelledby="source-title">
+      <p class="eyebrow">07 / SOURCE</p>
+      <div>
+        <h2 id="source-title">Read the systems,<br />not the pitch.</h2>
+        <p>Public repositories, current evidence, roadmaps, and implementation history are the authoritative surfaces behind this portfolio.</p>
+        <div class="source-links">
+          <a href="https://github.com/vessaxor-spec">GitHub profile ↗</a>
+          <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">TEO ↗</a>
+          <a href="https://github.com/vessaxor-spec/GroX">GroX ↗</a>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <p>VESSAXOR / LIVING SYSTEMS LAB</p>
-    <p>Build for replacement. Govern for consequence.</p>
+    <p>Systems should outlive the models that happen to run them.</p>
   </footer>
 
   <script src="./app.js" defer></script>
