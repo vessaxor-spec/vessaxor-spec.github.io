@@ -4,7 +4,7 @@ Public GitHub Pages portfolio for `vessaxor-spec`.
 
 The site is intentionally static and dependency-light. Public project state is refreshed at build time from the VESSAXOR profile repository and the public GitHub release API. Approved VESSAXOR, TEO, and GroX source banners are synchronized at build time and pinned by dimensions plus SHA-256 digest so visual identity cannot silently drift.
 
-No analytics, trackers, cookies, remote fonts, or external frontend frameworks are included.
+No analytics, trackers, cookies, remote fonts, external frontend frameworks, or package-manager-installed media tooling are included.
 
 ## Improvement program
 
@@ -20,16 +20,19 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000`.
 
-The committed `data/projects.json` is a current fallback snapshot. Canonical full-resolution source PNGs are build-synchronized from digest-pinned public sources. Responsive WebP derivatives, the dedicated social preview, and the SVG favicon are committed governed assets tied to those approved visuals, so deployment does not depend on an image-conversion tool being present on the runner.
+The committed `data/projects.json` is a current fallback snapshot. Canonical full-resolution source PNGs are build-synchronized from digest-pinned public sources. Responsive WebP derivatives and the dedicated 1200×630 social preview are generated deterministically from those sources with the headless Chrome runtime already used for render validation. The SVG favicon is committed.
 
 ## Build validation
 
 ```bash
 python3 scripts/generate_site_data.py
 python3 scripts/sync_site_visuals.py
+node scripts/build_site_media.mjs
 python3 scripts/validate_site.py
 node --check app.js
 ```
+
+`scripts/build_site_media.mjs` uses only Node built-ins plus the existing Chrome/Chromium runtime through the Chrome DevTools Protocol. It does not install npm packages, Python imaging libraries, or system packages.
 
 Validation covers public state, source-banner identity, responsive media dimensions, duplicate IDs, internal anchors, image alt text, heading-order regressions, micro-type floor, accessible focus treatment, SEO discovery surfaces, and expected portfolio structure.
 
@@ -51,8 +54,8 @@ The site exposes a minimal crawl/indexing foundation:
 - approved source visuals: VESSAXOR, TEO, and GroX repository banners pinned by SHA-256
 - generated site data: `data/projects.json`
 - build-synchronized source PNGs: `vessaxor-hero.png`, `teo-banner.png`, `grox-banner.png`
-- responsive media: committed 720/1200/1800 WebP derivatives plus PNG fallback
-- social media: committed 1200×630 VESSAXOR Open Graph preview
+- generated responsive media: 720/1200/1800 WebP derivatives plus PNG fallback
+- generated social media: 1200×630 VESSAXOR Open Graph preview
 - validation: `scripts/validate_site.py`
 - deployment: GitHub Pages via `.github/workflows/deploy-pages.yml`
 - pull requests: validation and render review only; Pages deployment remains restricted to non-PR events
