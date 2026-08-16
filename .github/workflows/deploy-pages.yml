@@ -29,9 +29,6 @@ jobs:
       - name: Sync approved portfolio visuals
         run: python3 scripts/sync_site_visuals.py
 
-      - name: Build responsive portfolio media
-        run: python3 scripts/build_site_media.py
-
       - name: Validate static portfolio
         run: |
           python3 scripts/validate_site.py
@@ -78,9 +75,6 @@ jobs:
 
       - name: Sync approved portfolio visuals
         run: python3 scripts/sync_site_visuals.py
-
-      - name: Build responsive portfolio media
-        run: python3 scripts/build_site_media.py
 
       - name: Validate static portfolio
         run: |
