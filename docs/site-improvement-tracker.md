@@ -31,7 +31,7 @@ Completion standard: an item is complete only when the implementation exists on 
 
 ## Phase 4 — Performance and media delivery
 
-- [x] P01 Generate responsive WebP derivatives for VESSAXOR, TEO, and GroX while retaining canonical PNG fallbacks.
+- [x] P01 Commit responsive WebP derivatives for VESSAXOR, TEO, and GroX while retaining canonical PNG fallbacks.
 - [x] P02 Add `srcset`/`sizes` responsive image delivery.
 - [x] P03 Mark hero as high-priority LCP media with `fetchpriority="high"`.
 - [x] P04 Disable mobile header backdrop-filter cost.
@@ -57,4 +57,6 @@ Completion standard: an item is complete only when the implementation exists on 
 
 ## Evidence
 
-Evidence links and final metrics will be added here as each gate closes.
+- PR run #16 correctly failed when the proposed `ffmpeg` runtime dependency was absent on the GitHub Ubuntu 24.04 runner. The dependency was not bypassed or installed ad hoc. The design was changed instead: responsive derivatives are committed governed assets, removing the runtime converter from the Pages execution path.
+- The build-time source visual sync remains fail-closed on exact dimensions and approved SHA-256 digests for VESSAXOR, TEO, and GroX source banners.
+- Final CI, render-review, production deployment, and performance evidence will be recorded as their gates close.
