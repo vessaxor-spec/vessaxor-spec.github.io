@@ -28,6 +28,17 @@ python3 scripts/validate_site.py
 
 The visual sync fails closed if any approved banner is no longer a 2172×724 PNG or becomes unexpectedly small, preventing a low-resolution replacement from silently reaching production.
 
+## Search discovery
+
+The site exposes a minimal crawl/indexing foundation:
+
+- `robots.txt` permits public crawling and advertises the canonical sitemap
+- `sitemap.xml` lists the canonical portfolio homepage
+- `index.html` declares `index,follow`, the canonical URL, large-image preview permission, and WebSite structured data
+- `scripts/validate_site.py` fails the Pages build if these discovery surfaces disappear or drift from the canonical site URL
+
+Google Search Console ownership and indexing requests are intentionally external to this repository. A future Search Console verification token can be added without changing the public portfolio architecture.
+
 ## Public-state pipeline
 
 - curated focus source: `vessaxor-spec/vessaxor-spec/profile/status.toml`
