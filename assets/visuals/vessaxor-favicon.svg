@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="VESSAXOR">
+  <rect x="2" y="2" width="92" height="92" rx="20" fill="#07090c" stroke="#2a3038" stroke-width="2"/>
+  <path d="M24 28 L48 70" fill="none" stroke="#e97922" stroke-width="10" stroke-linecap="round"/>
+  <path d="M72 28 L48 70" fill="none" stroke="#28b7e9" stroke-width="10" stroke-linecap="round"/>
+</svg>
