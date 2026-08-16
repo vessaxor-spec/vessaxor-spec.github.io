@@ -20,14 +20,13 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000`.
 
-The committed `data/projects.json` is a current fallback snapshot. Canonical full-resolution source PNGs are build-synchronized; responsive WebP derivatives and the social preview are generated deterministically from the pinned source visuals; the SVG favicon is committed.
+The committed `data/projects.json` is a current fallback snapshot. Canonical full-resolution source PNGs are build-synchronized from digest-pinned public sources. Responsive WebP derivatives, the dedicated social preview, and the SVG favicon are committed governed assets tied to those approved visuals, so deployment does not depend on an image-conversion tool being present on the runner.
 
 ## Build validation
 
 ```bash
 python3 scripts/generate_site_data.py
 python3 scripts/sync_site_visuals.py
-python3 scripts/build_site_media.py
 python3 scripts/validate_site.py
 node --check app.js
 ```
@@ -52,7 +51,8 @@ The site exposes a minimal crawl/indexing foundation:
 - approved source visuals: VESSAXOR, TEO, and GroX repository banners pinned by SHA-256
 - generated site data: `data/projects.json`
 - build-synchronized source PNGs: `vessaxor-hero.png`, `teo-banner.png`, `grox-banner.png`
-- responsive media: generated 720/1200/1800 WebP derivatives plus PNG fallback
+- responsive media: committed 720/1200/1800 WebP derivatives plus PNG fallback
+- social media: committed 1200×630 VESSAXOR Open Graph preview
 - validation: `scripts/validate_site.py`
 - deployment: GitHub Pages via `.github/workflows/deploy-pages.yml`
 - pull requests: validation and render review only; Pages deployment remains restricted to non-PR events
