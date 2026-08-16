@@ -3,11 +3,15 @@ from __future__ import annotations
 
 import json
 import struct
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 DATA = ROOT / "data" / "projects.json"
+ROBOTS = ROOT / "robots.txt"
+SITEMAP = ROOT / "sitemap.xml"
+SITE_URL = "https://vessaxor-spec.github.io/"
 
 EXPECTED_VISUALS = {
     "assets/visuals/vessaxor-hero.png": (2172, 724),
@@ -36,6 +40,10 @@ def main() -> None:
         "./assets/visuals/vessaxor-hero.png",
         "./assets/visuals/teo-banner.png",
         "./assets/visuals/grox-banner.png",
+        '<meta name="robots" content="index,follow,max-image-preview:large" />',
+        '<link rel="canonical" href="https://vessaxor-spec.github.io/" />',
+        '<link rel="sitemap" type="application/xml" href="https://vessaxor-spec.github.io/sitemap.xml" />',
+        '"@type": "WebSite"',
     ]
     for fragment in required_fragments:
         if fragment not in html:
@@ -49,6 +57,32 @@ def main() -> None:
     for fragment in forbidden_fragments:
         if fragment in html:
             raise RuntimeError(f"index.html still contains stale/degraded fragment: {fragment}")
+
+    if not ROBOTS.exists():
+        raise RuntimeError("missing robots.txt")
+    robots = ROBOTS.read_text(encoding="utf-8")
+    for fragment in (
+        "User-agent: *",
+        "Allow: /",
+        "Sitemap: https://vessaxor-spec.github.io/sitemap.xml",
+    ):
+        if fragment not in robots:
+            raise RuntimeError(f"robots.txt missing required directive: {fragment}")
+
+    if not SITEMAP.exists():
+        raise RuntimeError("missing sitemap.xml")
+    try:
+        root = ET.parse(SITEMAP).getroot()
+    except ET.ParseError as exc:
+        raise RuntimeError(f"sitemap.xml is invalid XML: {exc}") from exc
+    namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+    locations = [
+        node.text.strip()
+        for node in root.findall(f"{namespace}url/{namespace}loc")
+        if node.text and node.text.strip()
+    ]
+    if SITE_URL not in locations:
+        raise RuntimeError(f"sitemap.xml missing canonical homepage URL: {SITE_URL}")
 
     data = json.loads(DATA.read_text(encoding="utf-8"))
     for key in ("teo", "grox"):
