@@ -36,8 +36,10 @@ jobs:
         run: |
           python3 scripts/validate_site.py
           node --check app.js
+          node --check scripts/build_site_media.mjs
+          node --check scripts/capture_site_render.mjs
 
-      - name: Capture desktop and mobile render review
+      - name: Capture full-page desktop and mobile render review
         run: |
           python3 -m http.server 8000 >/tmp/vessaxor-http.log 2>&1 &
           server_pid=$!
@@ -46,10 +48,7 @@ jobs:
             if curl -fsS http://127.0.0.1:8000/ >/dev/null; then break; fi
             sleep 0.2
           done
-          chrome="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
-          test -n "$chrome"
-          "$chrome" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --window-size=1440,1000 --screenshot=render-desktop.png http://127.0.0.1:8000/
-          "$chrome" --headless=new --no-sandbox --disable-gpu --hide-scrollbars --window-size=390,844 --screenshot=render-mobile.png http://127.0.0.1:8000/
+          node scripts/capture_site_render.mjs http://127.0.0.1:8000/
 
       - name: Upload render review artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -86,6 +85,7 @@ jobs:
         run: |
           python3 scripts/validate_site.py
           node --check app.js
+          node --check scripts/build_site_media.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
