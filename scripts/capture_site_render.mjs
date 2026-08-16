@@ -83,14 +83,49 @@ async function waitReady(cdp) {
   throw new Error('Portfolio page did not become ready for render capture');
 }
 
+async function primeLazyMedia(cdp) {
+  const result = await cdp('Runtime.evaluate', {
+    expression: `(async () => {
+      const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+      const step = Math.max(320, Math.floor(window.innerHeight * 0.72));
+      const limit = document.documentElement.scrollHeight;
+      for (let y = 0; y < limit; y += step) {
+        window.scrollTo(0, y);
+        await sleep(80);
+      }
+      window.scrollTo(0, document.documentElement.scrollHeight);
+      await sleep(120);
+      const images = Array.from(document.images);
+      await Promise.all(images.map(image => {
+        if (image.complete) return Promise.resolve();
+        return new Promise(resolve => {
+          image.addEventListener('load', resolve, { once: true });
+          image.addEventListener('error', resolve, { once: true });
+          setTimeout(resolve, 3000);
+        });
+      }));
+      window.scrollTo(0, 0);
+      await sleep(120);
+      document.querySelectorAll('.reveal').forEach(node => node.classList.add('is-visible'));
+      return images.map(image => ({ src: image.currentSrc || image.src, complete: image.complete, width: image.naturalWidth }));
+    })()`,
+    awaitPromise: true,
+    returnByValue: true
+  });
+  const images = result.result?.value ?? [];
+  const failed = images.filter(image => !image.complete || !image.width);
+  if (failed.length) throw new Error(`Render review found unloaded images: ${JSON.stringify(failed)}`);
+}
+
 async function capture(cdp, width, viewportHeight, output) {
   await cdp('Emulation.setDeviceMetricsOverride', { width, height: viewportHeight, deviceScaleFactor: 1, mobile: width <= 640 });
   await cdp('Page.navigate', { url: TARGET });
   await waitReady(cdp);
   await cdp('Runtime.evaluate', {
-    expression: `document.documentElement.style.scrollBehavior='auto'; document.querySelectorAll('.reveal').forEach(node => node.classList.add('is-visible')); true;`,
+    expression: `document.documentElement.style.scrollBehavior='auto'; true;`,
     returnByValue: true
   });
+  await primeLazyMedia(cdp);
   const metrics = await cdp('Page.getLayoutMetrics');
   const content = metrics.cssContentSize ?? metrics.contentSize;
   const captureWidth = Math.ceil(content.width);
