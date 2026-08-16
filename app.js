@@ -58,7 +58,7 @@ function configureNavigation() {
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && nav.classList.contains('is-open')) {
       close();
       toggle.focus();
     }
