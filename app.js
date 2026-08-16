@@ -2,7 +2,18 @@ const DATA_URL = './data/projects.json';
 
 function setText(selector, value) {
   const node = document.querySelector(selector);
-  if (node && value != null) node.textContent = value;
+  if (node && value != null && value !== '') node.textContent = value;
+}
+
+function formatGeneratedAt(value) {
+  if (!value || value === 'baseline') return 'build-time public data';
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return String(value);
+  return `generated ${parsed.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  })}`;
 }
 
 async function loadPortfolioData() {
@@ -26,8 +37,9 @@ async function loadPortfolioData() {
     setText('#grox-focus', grox.focus);
     setText('#research-focus', data.research?.focus);
     setText('#reviewed-at', `reviewed ${data.profile?.reviewed_at ?? '—'}`);
+    setText('#generated-at', formatGeneratedAt(data.generated_at));
   } catch (error) {
-    console.warn('Portfolio data unavailable; static site content remains usable.', error);
+    console.warn('Portfolio data unavailable; current static fallback content remains visible.', error);
   }
 }
 
@@ -57,8 +69,9 @@ function configureReveals() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const targets = document.querySelectorAll(
-    '.system-spread, .state-console, .work-streams li, .principles-list article, .source-link'
+    '.system-panel, .relation-grid, .state-board, .work-list li, .principles-grid article, .source-links'
   );
+
   targets.forEach((node) => node.classList.add('reveal'));
 
   const observer = new IntersectionObserver((entries) => {
@@ -67,7 +80,7 @@ function configureReveals() {
       entry.target.classList.add('is-visible');
       observer.unobserve(entry.target);
     });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  }, { rootMargin: '0px 0px -7% 0px', threshold: 0.07 });
 
   targets.forEach((node) => observer.observe(node));
 }
