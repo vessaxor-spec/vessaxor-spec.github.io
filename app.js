@@ -1,96 +1,77 @@
 const DATA_URL = './data/projects.json';
 
+function setText(selector, value) {
+  const node = document.querySelector(selector);
+  if (node && value != null) node.textContent = value;
+}
+
 async function loadPortfolioData() {
   try {
     const response = await fetch(DATA_URL, { cache: 'no-store' });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
 
-    document.querySelector('#teo-release').textContent = data.projects.teo.release;
-    document.querySelector('#grox-release').textContent = data.projects.grox.release;
-    document.querySelector('#teo-status').textContent = data.projects.teo.status;
-    document.querySelector('#grox-status').textContent = data.projects.grox.status;
-    document.querySelector('#teo-focus').textContent = data.projects.teo.focus;
-    document.querySelector('#grox-focus').textContent = data.projects.grox.focus;
-    document.querySelector('#research-focus').textContent = data.research.focus;
-    document.querySelector('#reviewed-at').textContent = `Curated public state · reviewed ${data.profile.reviewed_at}`;
+    const teo = data.projects?.teo ?? {};
+    const grox = data.projects?.grox ?? {};
+
+    setText('#teo-release', teo.release);
+    setText('#grox-release', grox.release);
+    setText('#teo-status', teo.status);
+    setText('#grox-status', grox.status);
+    setText('#state-teo-release', teo.release);
+    setText('#state-grox-release', grox.release);
+    setText('#state-teo-status', teo.status);
+    setText('#state-grox-status', grox.status);
+    setText('#teo-focus', teo.focus);
+    setText('#grox-focus', grox.focus);
+    setText('#research-focus', data.research?.focus);
+    setText('#reviewed-at', `reviewed ${data.profile?.reviewed_at ?? '—'}`);
   } catch (error) {
     console.warn('Portfolio data unavailable; static site content remains usable.', error);
   }
 }
 
-function startSignalField() {
+function configureNavigation() {
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('#site-nav');
+  if (!toggle || !nav) return;
+
+  const close = () => {
+    nav.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+
+  toggle.addEventListener('click', () => {
+    const open = !nav.classList.contains('is-open');
+    nav.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 980) close();
+  });
+}
+
+function configureReveals() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const canvas = document.querySelector('#signal-field');
-  const context = canvas.getContext('2d');
-  const particles = [];
-  const pointer = { x: -9999, y: -9999 };
-  let width = 0;
-  let height = 0;
-  let frame = 0;
 
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    const ratio = Math.min(window.devicePixelRatio || 1, 2);
-    width = rect.width;
-    height = rect.height;
-    canvas.width = Math.floor(width * ratio);
-    canvas.height = Math.floor(height * ratio);
-    context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    particles.length = 0;
-    const count = Math.max(28, Math.min(72, Math.floor(width / 19)));
-    for (let i = 0; i < count; i += 1) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.16,
-        vy: (Math.random() - 0.5) * 0.16,
-        r: Math.random() * 1.25 + 0.55,
-        family: Math.random() > 0.62 ? 'cyan' : 'orange'
-      });
-    }
-  }
+  const targets = document.querySelectorAll(
+    '.system-spread, .state-console, .work-streams li, .principles-list article, .source-link'
+  );
+  targets.forEach((node) => node.classList.add('reveal'));
 
-  function draw() {
-    frame = requestAnimationFrame(draw);
-    context.clearRect(0, 0, width, height);
-    for (const p of particles) {
-      const dx = p.x - pointer.x;
-      const dy = p.y - pointer.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance < 120 && distance > 0) {
-        p.x += (dx / distance) * 0.12;
-        p.y += (dy / distance) * 0.12;
-      }
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < -10) p.x = width + 10;
-      if (p.x > width + 10) p.x = -10;
-      if (p.y < -10) p.y = height + 10;
-      if (p.y > height + 10) p.y = -10;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
-      context.beginPath();
-      context.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      context.fillStyle = p.family === 'cyan' ? 'rgba(50,199,255,.6)' : 'rgba(255,122,23,.58)';
-      context.fill();
-    }
-  }
-
-  const observer = new ResizeObserver(resize);
-  observer.observe(canvas);
-  canvas.addEventListener('pointermove', (event) => {
-    const rect = canvas.getBoundingClientRect();
-    pointer.x = event.clientX - rect.left;
-    pointer.y = event.clientY - rect.top;
-  });
-  canvas.addEventListener('pointerleave', () => { pointer.x = -9999; pointer.y = -9999; });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) cancelAnimationFrame(frame);
-    else draw();
-  });
-  resize();
-  draw();
+  targets.forEach((node) => observer.observe(node));
 }
 
 loadPortfolioData();
-startSignalField();
+configureNavigation();
+configureReveals();
