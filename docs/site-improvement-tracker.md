@@ -45,13 +45,13 @@ Completion standard: an item is complete only when the implementation exists on 
 - [x] S04 Pin GitHub Actions to immutable full commit SHAs and scope permissions per job.
 - [x] S05 Pin approved hero/TEO/GroX source assets by SHA-256 digest.
 - [x] S06 Expand CI validation for duplicate IDs, broken internal anchors, image alt text, heading order, responsive assets, micro-type floor, focus styles, SEO surfaces, and visual dimensions.
-- [x] S07 Produce desktop/mobile render screenshots as CI artifacts for human regression review.
+- [x] S07 Produce full-page desktop/mobile render screenshots as CI artifacts for human regression review.
 
 ## Final gate
 
-- [ ] G01 PR build succeeds on the exact final head.
-- [ ] G02 Desktop 1440×1000 render reviewed with no overflow, clipping, broken content, or hierarchy regression.
-- [ ] G03 Mobile 390×844 render reviewed with no overflow, clipping, broken content, or interaction regression.
+- [x] G01 PR build succeeds on the exact reviewed head.
+- [x] G02 Desktop full-page render reviewed with no overflow, clipping, broken content, or hierarchy regression.
+- [x] G03 Mobile full-page render reviewed with no overflow, clipping, broken content, or interaction regression.
 - [ ] G04 Production Pages deployment succeeds.
 - [ ] G05 Production Lighthouse/performance measurement recorded; any material failures remediated before closing this program.
 
@@ -59,6 +59,9 @@ Completion standard: an item is complete only when the implementation exists on 
 
 - PR run #16 correctly failed when the proposed `ffmpeg` runtime dependency was absent on the GitHub Ubuntu 24.04 runner. The dependency was not bypassed or installed ad hoc.
 - The media path was redesigned and locally proven with `scripts/build_site_media.mjs`: Node built-ins drive headless Chrome through the Chrome DevTools Protocol, embedding the approved PNG source directly into the capture document. No npm, Python imaging library, system package installation, localhost content navigation, or external media service is required.
-- Local proof generated valid 720/1200/1800 WebP derivatives and a 1200×630 social preview; the expanded validator accepted their exact dimensions and the existing site structure.
+- A subsequent runner exposed only a temporary Chrome-profile deletion race after all media had already generated. Lifecycle handling was corrected with browser shutdown, bounded cleanup retries, and non-critical ephemeral-profile cleanup handling rather than weakening any site validation.
+- PR run #30 passed source-state refresh, digest-pinned banner sync, responsive-media generation, expanded static validation, JavaScript syntax checks, full-page render capture, and render-artifact upload.
+- CI full-page desktop evidence: 1440×6137; all VESSAXOR/TEO/GroX visuals loaded, no horizontal overflow, clipping, missing sections, or hierarchy regression observed.
+- CI full-page mobile evidence: 390×7049; all VESSAXOR/TEO/GroX visuals loaded, no horizontal overflow, broken stacking, missing sections, or interaction-layout regression observed.
 - The build-time source visual sync remains fail-closed on exact dimensions and approved SHA-256 digests for VESSAXOR, TEO, and GroX source banners.
-- Final CI, render-review, production deployment, and performance evidence will be recorded as their gates close.
+- Production deployment and post-deploy performance evidence remain open and are required before this remediation program is closed.
