@@ -55,10 +55,16 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
   - TEO: strong description/topics, empty homepage field.
   - GroX: strong description/topics, empty homepage field.
   - GitHub user profile: strong bio, empty website/blog field.
-- [ ] D403 Add reciprocal public-overview links from TEO and GroX README entry surfaces after public-state integrity closes.
-- [ ] D404 Improve repository/profile About metadata where a governed write path is available; connector currently exposes no repository/profile metadata mutation, so this remains explicitly unclaimed.
+- [x] D403 Add reciprocal public-overview links from TEO and GroX README entry surfaces after public-state integrity closes.
+- [ ] D404 Improve repository/profile About metadata where a governed write path is available. The connected GitHub capability was re-audited on 17 Aug 2026 and exposes read/search access for descriptions/topics but no mutation action for repository description, homepage, topics, or user-profile website; this remains a verified capability gap rather than an unattempted item.
 - [ ] D405 Recheck search discovery after reciprocal links and metadata changes have had time to be indexed; do not convert indexing delay into a false failure or success claim.
+
+### Program 4 evidence
+
+- TEO PR #177 added exactly one `Public overview` link to `https://vessaxor-spec.github.io/teo/`; Reference Implementation CI run #772 (`32041919992`) passed repository layout, compilation, automated tests, regulated specialist evidence, JSON schemas, linked configuration, and the end-to-end example before merge as `4b4f07fc448b48c9b551e5ae759dd02cf1bb8d24`.
+- GroX PR #59 added exactly one `Public overview` link to `https://vessaxor-spec.github.io/grox/`; GroX CI run #160 (`32041926390`) passed Python 3.11–3.14 regression coverage, wheel-bootstrap portability, and the full Python 3.12 post-Apex experiment/mutation/integrated-qualification path before merge as `40e8234aecb23d5775e3c407b6ed19a054b35f84`.
+- Both flagship repositories therefore now link outward to their dedicated VESSAXOR public overview, while the portfolio already links back to the canonical repositories. This establishes reciprocal crawl/discovery paths without making the portfolio authoritative over either system.
 
 ## Current state
 
-**PROGRAM 3 CLOSED / PROGRAM 4 ACTIVE — public-state integrity is production-qualified. The next executable step is D403: add reciprocal public-overview links from TEO and GroX README entry surfaces. Repository/profile About metadata remains an explicit tool-capability gap, and search re-evaluation remains time-dependent.**
+**PROGRAM 3 CLOSED / PROGRAM 4 PARTIALLY EXECUTED — D403 is complete and evidence-backed. D404 is blocked by the current GitHub connector's verified lack of metadata-write actions. D405 remains intentionally open until reciprocal links have had a meaningful indexing interval; immediate search results are not treated as proof of success or failure.**
