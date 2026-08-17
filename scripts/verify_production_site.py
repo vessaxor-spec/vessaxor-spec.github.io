@@ -16,7 +16,6 @@ TARGETS = {
     "assets/visuals/vessaxor-hero-720.webp": ("image/webp", None),
     "assets/visuals/vessaxor-hero-1200.webp": ("image/webp", None),
     "assets/visuals/vessaxor-hero-1800.webp": ("image/webp", None),
-    "assets/visuals/vessaxor-hero-2172.webp": ("image/webp", None),
     "assets/visuals/vessaxor-hero.png": ("image/png", None),
     "assets/visuals/teo-banner-1200.webp": ("image/webp", None),
     "assets/visuals/grox-banner-1200.webp": ("image/webp", None),
