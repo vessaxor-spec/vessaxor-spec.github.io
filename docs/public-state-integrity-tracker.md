@@ -65,6 +65,27 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
 - GroX PR #59 added exactly one `Public overview` link to `https://vessaxor-spec.github.io/grox/`; GroX CI run #160 (`32041926390`) passed Python 3.11–3.14 regression coverage, wheel-bootstrap portability, and the full Python 3.12 post-Apex experiment/mutation/integrated-qualification path before merge as `40e8234aecb23d5775e3c407b6ed19a054b35f84`.
 - Both flagship repositories therefore now link outward to their dedicated VESSAXOR public overview, while the portfolio already links back to the canonical repositories. This establishes reciprocal crawl/discovery paths without making the portfolio authoritative over either system.
 
+## Program 5 — Hero Delivery Quality
+
+### V5.1 — Retry and diagnosis
+
+- [x] V501 Retry the previously infrastructure-blocked Pages workflow. Run #67 (`32042281408`) ultimately passed build, validation, deployment, live HTTP smoke, and deployed Firefox after GitHub action-distribution throttling cleared.
+- [x] V502 Diagnose hero softness: the homepage preloaded a 1200px WebP for every desktop and exposed responsive WebPs only through 1800px despite an approved 2172x724 lossless master.
+
+### V5.2 — High-density delivery
+
+- [x] V503 Raise VESSAXOR hero WebP generation quality from 90 to 96 while leaving TEO/GroX media generation unchanged at quality 90.
+- [x] V504 Preload 720px WebP on mobile and 1800px WebP on standard-density desktop.
+- [x] V505 Route desktop displays at 1.5dppx or higher to the approved lossless 2172x724 PNG master.
+- [x] V506 Preserve the first generated-2172-WebP attempt as negative evidence: automated CI passed, but human render review found the derivative visually unusable, so it was rejected before merge.
+- [x] V507 PR #16 exact head `69e666c8c1be65a34fad483644ae753b80bad2eb` passed run #71 (`32070032591`) across media generation, static validation, Chromium render/reliability, eight Firefox cold loads, and artifact publication.
+- [x] V508 Human review of run #71 confirmed the hero is visible and sharper than the prior accepted desktop render; the corrected strategy uses the lossless master rather than a generated 2172px derivative.
+- [x] V509 Production merge `c8947c9babebaee698ab57a91d8c2192abdc452c` passed run #72 (`32070333281`) across Pages build, full validation, deployment, live HTTP smoke, and deployed Firefox cold loads.
+
+### Program 5 state
+
+**CLOSED / CONTINUOUS HERO-DELIVERY COVERAGE — mobile retains an efficient 720px path, standard-density desktop receives higher-quality WebP media, high-density desktop receives the approved lossless master, and Chromium/Firefox plus human render review remain evidence gates for hero changes.**
+
 ## Current state
 
-**PROGRAM 3 CLOSED / PROGRAM 4 PARTIALLY EXECUTED — D403 is complete and evidence-backed. D404 is blocked by the current GitHub connector's verified lack of metadata-write actions. D405 remains intentionally open until reciprocal links have had a meaningful indexing interval; immediate search results are not treated as proof of success or failure.**
+**PROGRAM 3 CLOSED / PROGRAM 4 PARTIALLY EXECUTED / PROGRAM 5 CLOSED — public-state integrity and hero delivery quality are production-qualified. D403 is complete and evidence-backed. D404 is blocked by the current GitHub connector's verified lack of metadata-write actions. D405 remains intentionally open until reciprocal links have had a meaningful indexing interval; immediate search results are not treated as proof of success or failure.**
