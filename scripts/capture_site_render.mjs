@@ -6,6 +6,7 @@ import { join } from 'node:path';
 
 const TARGET = process.argv[2] ?? 'http://127.0.0.1:8000/';
 const CHROME_CANDIDATES = ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'];
+const PATHS = ['/', '/teo/', '/grox/', '/evidence/'];
 
 async function findChrome() {
   const { access } = await import('node:fs/promises');
@@ -71,7 +72,7 @@ async function connectPage(port) {
 async function waitReady(cdp) {
   for (let attempt = 0; attempt < 100; attempt++) {
     const result = await cdp('Runtime.evaluate', {
-      expression: `document.readyState === 'complete' && document.querySelector('#hero-title') !== null`,
+      expression: `document.readyState === 'complete' && document.querySelector('#main') !== null`,
       returnByValue: true
     });
     if (result.result?.value === true) {
@@ -91,10 +92,10 @@ async function primeLazyMedia(cdp) {
       const limit = document.documentElement.scrollHeight;
       for (let y = 0; y < limit; y += step) {
         window.scrollTo(0, y);
-        await sleep(80);
+        await sleep(70);
       }
       window.scrollTo(0, document.documentElement.scrollHeight);
-      await sleep(120);
+      await sleep(100);
       const images = Array.from(document.images);
       await Promise.all(images.map(image => {
         if (image.complete) return Promise.resolve();
@@ -105,7 +106,7 @@ async function primeLazyMedia(cdp) {
         });
       }));
       window.scrollTo(0, 0);
-      await sleep(120);
+      await sleep(100);
       document.querySelectorAll('.reveal').forEach(node => node.classList.add('is-visible'));
       return images.map(image => ({ src: image.currentSrc || image.src, complete: image.complete, width: image.naturalWidth }));
     })()`,
@@ -117,28 +118,54 @@ async function primeLazyMedia(cdp) {
   if (failed.length) throw new Error(`Render review found unloaded images: ${JSON.stringify(failed)}`);
 }
 
-async function capture(cdp, width, viewportHeight, output) {
+async function preparePage(cdp, width, viewportHeight, path) {
+  const url = new URL(path, TARGET).href;
   await cdp('Emulation.setDeviceMetricsOverride', { width, height: viewportHeight, deviceScaleFactor: 1, mobile: width <= 640 });
-  await cdp('Page.navigate', { url: TARGET });
+  await cdp('Page.navigate', { url });
   await waitReady(cdp);
-  await cdp('Runtime.evaluate', {
-    expression: `document.documentElement.style.scrollBehavior='auto'; true;`,
-    returnByValue: true
-  });
+  await cdp('Runtime.evaluate', { expression: `document.documentElement.style.scrollBehavior='auto'; true;`, returnByValue: true });
   await primeLazyMedia(cdp);
   const metrics = await cdp('Page.getLayoutMetrics');
   const content = metrics.cssContentSize ?? metrics.contentSize;
   const captureWidth = Math.ceil(content.width);
   const captureHeight = Math.ceil(content.height);
-  if (captureWidth > width + 1) throw new Error(`Horizontal overflow at ${width}px: content width ${captureWidth}px`);
+  if (captureWidth > width + 1) throw new Error(`Horizontal overflow at ${width}px on ${path}: content width ${captureWidth}px`);
+  return { captureWidth, captureHeight, path };
+}
+
+async function capture(cdp, width, viewportHeight, output, path = '/') {
+  const { captureWidth, captureHeight } = await preparePage(cdp, width, viewportHeight, path);
   const result = await cdp('Page.captureScreenshot', {
-    format: 'png',
-    fromSurface: true,
-    captureBeyondViewport: true,
+    format: 'png', fromSurface: true, captureBeyondViewport: true,
     clip: { x: 0, y: 0, width: captureWidth, height: captureHeight, scale: 1 }
   });
   await writeFile(output, Buffer.from(result.data, 'base64'));
   console.log(`captured ${output}: ${captureWidth}x${captureHeight}`);
+}
+
+async function assertReliableMediaFallback(cdp) {
+  await preparePage(cdp, 1440, 1000, '/');
+  const result = await cdp('Runtime.evaluate', {
+    expression: `(async () => {
+      const frame = document.querySelector('.hero-art[data-reliable-media]');
+      const image = frame?.querySelector('img');
+      const fallback = frame?.querySelector('.media-fallback');
+      if (!frame || !image || !fallback) return { ok: false, reason: 'missing reliability markup' };
+      image.dispatchEvent(new Event('error'));
+      await new Promise(resolve => setTimeout(resolve, 80));
+      image.dispatchEvent(new Event('error'));
+      await new Promise(resolve => setTimeout(resolve, 80));
+      const style = getComputedStyle(fallback);
+      const rect = fallback.getBoundingClientRect();
+      const ok = frame.dataset.mediaState === 'failed' && Number(style.opacity) > 0.9 && rect.width > 200 && rect.height > 100;
+      return { ok, state: frame.dataset.mediaState, opacity: style.opacity, width: rect.width, height: rect.height };
+    })()`,
+    awaitPromise: true,
+    returnByValue: true
+  });
+  const verdict = result.result?.value ?? {};
+  if (!verdict.ok) throw new Error(`Hero fail-visible fallback check failed: ${JSON.stringify(verdict)}`);
+  console.log(`hero fail-visible fallback passed: ${JSON.stringify(verdict)}`);
 }
 
 async function cleanupChrome(child, profileDir) {
@@ -164,8 +191,14 @@ async function main() {
     await cdp('Page.enable');
     await cdp('Runtime.enable');
     try {
-      await capture(cdp, 1440, 1000, 'render-desktop.png');
-      await capture(cdp, 390, 844, 'render-mobile.png');
+      await capture(cdp, 1440, 1000, 'render-desktop.png', '/');
+      await capture(cdp, 390, 844, 'render-mobile.png', '/');
+      for (const path of PATHS.slice(1)) {
+        await preparePage(cdp, 1440, 1000, path);
+        await preparePage(cdp, 390, 844, path);
+        console.log(`layout passed on desktop/mobile: ${path}`);
+      }
+      await assertReliableMediaFallback(cdp);
     } finally {
       try { await cdp('Browser.close'); } catch {}
       socket.close();

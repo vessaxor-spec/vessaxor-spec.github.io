@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090c" />
+  <meta name="description" content="VESSAXOR evidence surface: selected public claims from TEO and GroX paired with bounded evidence, current state, limitations, and primary sources." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta property="og:title" content="Evidence Surface — VESSAXOR" />
+  <meta property="og:description" content="Public claims should carry state, evidence, boundaries, and primary sources." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vessaxor-spec.github.io/evidence/" />
+  <meta property="og:image" content="https://vessaxor-spec.github.io/assets/visuals/vessaxor-social-preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Evidence Surface — VESSAXOR" />
+  <meta name="twitter:description" content="Claim → evidence → boundary → primary source." />
+  <meta name="twitter:image" content="https://vessaxor-spec.github.io/assets/visuals/vessaxor-social-preview.png" />
+  <link rel="canonical" href="https://vessaxor-spec.github.io/evidence/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/visuals/vessaxor-favicon.svg" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "VESSAXOR Evidence Surface",
+      "url": "https://vessaxor-spec.github.io/evidence/",
+      "description": "Selected public claims from TEO and GroX paired with evidence, explicit boundaries, and primary source links.",
+      "isPartOf": {"@type": "WebSite", "name": "VESSAXOR — Living Systems Lab", "url": "https://vessaxor-spec.github.io/"}
+    }
+  </script>
+  <title>Evidence Surface — VESSAXOR</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="wordmark" href="/" aria-label="VESSAXOR home">VESSAXOR</a>
+    <p class="header-note">Living Systems Lab</p>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Site navigation">
+      <a href="/">Home</a>
+      <a href="/teo/">TEO</a>
+      <a href="/grox/">GroX</a>
+      <a class="is-active" href="/evidence/">Evidence</a>
+      <a href="https://github.com/vessaxor-spec">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="page-masthead" aria-labelledby="page-title">
+      <div class="page-masthead-grid">
+        <div>
+          <p class="page-kicker">PUBLIC EVIDENCE SURFACE</p>
+          <div class="page-meta"><span>Claim → Evidence → Boundary → Source</span></div>
+        </div>
+        <div>
+          <h1 id="page-title">Show what the claim rests on.</h1>
+          <p class="page-deck">VESSAXOR treats evidence as part of the interface. This page exposes selected claims with the artifact or control behind them, the boundary of what the evidence proves, and the primary repository source.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="state" aria-labelledby="state-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">01 / LIVE PUBLIC STATE</p>
+        <div>
+          <h2 id="state-title">Current release and operating state.</h2>
+          <p>These values are refreshed from public release metadata and curated VESSAXOR state during the governed Pages build.</p>
+        </div>
+      </header>
+      <div class="state-board" aria-label="Current public portfolio state">
+        <div class="state-board-head"><span>PORTFOLIO SNAPSHOT</span><span id="reviewed-at">reviewed 16 Aug 2026</span></div>
+        <div class="state-row state-row-teo"><span>TEO</span><strong id="state-teo-release">v1.0.0</strong><em id="state-teo-status">reference_operational</em></div>
+        <div class="state-row state-row-grox"><span>GroX</span><strong id="state-grox-release">v0.7.1</strong><em id="state-grox-status">APEX QUALIFIED</em></div>
+        <div class="state-board-foot"><span>Generated</span><span id="generated-at">build-time public data</span></div>
+      </div>
+    </section>
+
+    <section class="page-section" id="ledger" aria-labelledby="ledger-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">02 / SELECTED EVIDENCE</p>
+        <div>
+          <h2 id="ledger-title">Evidence with explicit limits.</h2>
+          <p>The purpose is not to maximize claim volume. It is to make a small number of important claims inspectable.</p>
+        </div>
+      </header>
+      <div class="evidence-ledger">
+        <article class="evidence-record">
+          <div>
+            <p class="claim-label">TEO / ROUTING</p>
+            <h3>Responsibility is resolved before implementation.</h3>
+            <p>TEO's current public routing principles explicitly place responsibility and required capability before provider/model selection.</p>
+          </div>
+          <div>
+            <dl>
+              <div><dt>Evidence</dt><dd>Canonical routing policy plus runnable reference planner.</dd></div>
+              <div><dt>Boundary</dt><dd>Reference capability does not imply unrestricted live execution authority.</dd></div>
+              <div><dt>Source</dt><dd><a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-/blob/main/policy/routing/core/routing.yaml">routing.yaml ↗</a></dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="evidence-record">
+          <div>
+            <p class="claim-label">TEO / VERIFICATION</p>
+            <h3>Finalization distinguishes execution from verification.</h3>
+            <p>The reference CLI finalization path accepts execution and verification results as distinct inputs.</p>
+          </div>
+          <div>
+            <dl>
+              <div><dt>Evidence</dt><dd><code>teo finalize</code> consumes dispatch, execution result, and verification result artifacts.</dd></div>
+              <div><dt>Boundary</dt><dd>The evidence proves the reference contract and its tests, not every possible host integration.</dd></div>
+              <div><dt>Source</dt><dd><a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-#quick-start">TEO Quick Start ↗</a></dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="evidence-record">
+          <div>
+            <p class="claim-label">GroX / AUTHORITY</p>
+            <h3>Inspection does not automatically become Repair authority.</h3>
+            <p>GroX keeps inspection and mutation separate and exposes read-only Vessel health as a distinct surface.</p>
+          </div>
+          <div>
+            <dl>
+              <div><dt>Evidence</dt><dd>Native <code>grox health</code>, bounded inspect-mode Missions, and mutation regression coverage.</dd></div>
+              <div><dt>Boundary</dt><dd>A green health result does not grant broader tool or Repair authority.</dd></div>
+              <div><dt>Source</dt><dd><a href="https://github.com/vessaxor-spec/GroX#how-grox-works">GroX architecture summary ↗</a></dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="evidence-record">
+          <div>
+            <p class="claim-label">GroX / RECOVERY</p>
+            <h3>Failure narrows authority.</h3>
+            <p>Reconstitution scope escalates from FAST to TARGETED to FULL as evidence becomes weaker or operating conditions become less trustworthy.</p>
+          </div>
+          <div>
+            <dl>
+              <div><dt>Evidence</dt><dd>Explicit reconstitution planning and persistence/recovery rules.</dd></div>
+              <div><dt>Boundary</dt><dd>Recovery restores bounded operation; it does not silently widen Commander intent.</dd></div>
+              <div><dt>Source</dt><dd><a href="https://github.com/vessaxor-spec/GroX#persistence-and-recovery">Persistence &amp; recovery ↗</a></dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="evidence-record">
+          <div>
+            <p class="claim-label">VESSAXOR / PUBLIC SURFACE</p>
+            <h3>The site itself carries governed state.</h3>
+            <p>Release metadata and curated focus are generated during the Pages build rather than manually copied into a separate public truth source.</p>
+          </div>
+          <div>
+            <dl>
+              <div><dt>Evidence</dt><dd>Build-time GitHub release lookup, curated profile state, freshness validation, static validation, and full-page render capture.</dd></div>
+              <div><dt>Boundary</dt><dd>Build and lab evidence do not substitute for real-user field telemetry.</dd></div>
+              <div><dt>Source</dt><dd><a href="https://github.com/vessaxor-spec/vessaxor-spec.github.io">Portfolio repository ↗</a></dd></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="method" aria-labelledby="method-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">03 / METHOD</p>
+        <div>
+          <h2 id="method-title">A claim is stronger when its boundary is visible.</h2>
+          <p>Evidence is interpreted narrowly: tests prove the checks they actually executed; controlled experiments remain experiments; staged capability remains staged; missing evidence cannot be converted into confidence.</p>
+        </div>
+      </header>
+      <div class="definition-grid">
+        <article class="plain-definition">
+          <span class="source-label">THE PATTERN</span>
+          <h3>Claim → Evidence → Boundary → Primary source.</h3>
+          <p>This pattern is now a public design primitive across VESSAXOR. It makes system status legible without turning the portfolio into a marketing layer that outranks the repositories.</p>
+        </article>
+        <article>
+          <span class="source-label">THE RULE</span>
+          <h3>Implementation is not completion.</h3>
+          <p>Where a claim is consequential, the public surface should make it possible to inspect what evidence exists, what it does not prove, and where the authoritative record lives.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="page-exit">
+      <a class="action action-primary" href="/teo/">Explore TEO →</a>
+      <a class="action" href="/grox/">Explore GroX →</a>
+      <a class="action" href="/">Back to VESSAXOR</a>
+    </div>
+  </main>
+
+  <footer class="site-footer"><p>VESSAXOR / EVIDENCE</p><p>Public claims should carry state.</p></footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>

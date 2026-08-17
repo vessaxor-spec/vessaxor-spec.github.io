@@ -15,6 +15,12 @@ DATA = ROOT / "data" / "projects.json"
 ROBOTS = ROOT / "robots.txt"
 SITEMAP = ROOT / "sitemap.xml"
 SITE_URL = "https://vessaxor-spec.github.io/"
+PUBLIC_PAGES = {
+    "index.html": SITE_URL,
+    "teo/index.html": f"{SITE_URL}teo/",
+    "grox/index.html": f"{SITE_URL}grox/",
+    "evidence/index.html": f"{SITE_URL}evidence/",
+}
 
 EXPECTED_PNGS = {
     "assets/visuals/vessaxor-hero.png": (2172, 724),
@@ -49,8 +55,6 @@ def webp_dimensions(path: Path) -> tuple[int, int]:
         raise RuntimeError(f"{path} is not a valid WebP")
     chunk = payload[12:16]
     if chunk == b"VP8X":
-        if len(payload) < 30:
-            raise RuntimeError(f"{path} has a truncated VP8X header")
         width = 1 + int.from_bytes(payload[24:27], "little")
         height = 1 + int.from_bytes(payload[27:30], "little")
         return width, height
@@ -70,6 +74,7 @@ class AuditParser(HTMLParser):
         self.internal_links: list[str] = []
         self.images: list[dict[str, str | None]] = []
         self.headings: list[int] = []
+        self.h1_count = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = dict(attrs)
@@ -81,46 +86,66 @@ class AuditParser(HTMLParser):
         if tag == "img":
             self.images.append(attributes)
         if tag in {"h1", "h2", "h3", "h4", "h5", "h6"}:
-            self.headings.append(int(tag[1]))
+            level = int(tag[1])
+            self.headings.append(level)
+            if level == 1:
+                self.h1_count += 1
 
 
-def validate_html(html: str) -> None:
+def validate_html(path: Path, canonical: str) -> str:
+    html = path.read_text(encoding="utf-8")
     parser = AuditParser()
     parser.feed(html)
     duplicates = sorted({item for item in parser.ids if parser.ids.count(item) > 1})
     if duplicates:
-        raise RuntimeError(f"duplicate HTML ids: {duplicates}")
+        raise RuntimeError(f"{path.relative_to(ROOT)} duplicate HTML ids: {duplicates}")
     missing_targets = sorted(set(parser.internal_links) - set(parser.ids))
     if missing_targets:
-        raise RuntimeError(f"broken internal anchors: {missing_targets}")
+        raise RuntimeError(f"{path.relative_to(ROOT)} broken internal anchors: {missing_targets}")
     for image in parser.images:
         alt = image.get("alt")
         if alt is None or not alt.strip():
-            raise RuntimeError(f"image missing non-empty alt text: {image.get('src')}")
+            raise RuntimeError(f"{path.relative_to(ROOT)} image missing non-empty alt text: {image.get('src')}")
     for previous, current in zip(parser.headings, parser.headings[1:]):
         if current > previous + 1:
-            raise RuntimeError(f"heading level jumps from h{previous} to h{current}")
+            raise RuntimeError(f"{path.relative_to(ROOT)} heading level jumps from h{previous} to h{current}")
+    if parser.h1_count != 1:
+        raise RuntimeError(f"{path.relative_to(ROOT)} must contain exactly one h1, found {parser.h1_count}")
+    required = [
+        '<meta name="robots" content="index,follow,max-image-preview:large" />',
+        f'<link rel="canonical" href="{canonical}" />',
+        'name="description"', '<title>', 'application/ld+json', 'id="main"', 'class="skip-link"',
+    ]
+    for fragment in required:
+        if fragment not in html:
+            raise RuntimeError(f"{path.relative_to(ROOT)} missing required fragment: {fragment}")
+    return html
 
 
 def main() -> None:
-    html = INDEX.read_text(encoding="utf-8")
-    css = CSS.read_text(encoding="utf-8")
-    validate_html(html)
+    pages: dict[str, str] = {}
+    for relative, canonical in PUBLIC_PAGES.items():
+        path = ROOT / relative
+        if not path.exists():
+            raise RuntimeError(f"missing public page: {relative}")
+        pages[relative] = validate_html(path, canonical)
 
-    required_fragments = [
-        'id="systems"', 'id="relation"', 'id="state"', 'id="work"', 'id="principles"', 'id="source"',
-        'fetchpriority="high"', 'type="image/webp"', 'srcset=',
-        '<meta name="robots" content="index,follow,max-image-preview:large" />',
-        '<link rel="canonical" href="https://vessaxor-spec.github.io/" />',
+    html = pages["index.html"]
+    css = CSS.read_text(encoding="utf-8")
+
+    required_home_fragments = [
+        'id="orientation"', 'id="systems"', 'id="architecture"', 'id="state"', 'id="work"', 'id="principles"', 'id="source"',
+        'fetchpriority="high"', 'type="image/webp"', 'srcset=', 'data-reliable-media', 'class="hero-art-fallback media-fallback"',
         '<link rel="sitemap" type="application/xml" href="https://vessaxor-spec.github.io/sitemap.xml" />',
         'vessaxor-social-preview.png', 'vessaxor-favicon.svg', '"@type": "WebSite"',
         '<title>VESSAXOR — Persistent AI Systems & Orchestration</title>',
+        'href="./teo/"', 'href="./grox/"', 'href="./evidence/"',
     ]
-    for fragment in required_fragments:
+    for fragment in required_home_fragments:
         if fragment not in html:
             raise RuntimeError(f"index.html missing required fragment: {fragment}")
 
-    forbidden_fragments = ["teo-social-preview-v2.webp", "grox-social-preview-v2.webp", "principles-grid", "Loading current public focus"]
+    forbidden_fragments = ["teo-social-preview-v2.webp\" alt=", "grox-social-preview-v2.webp\" alt=", "principles-grid", "Loading current public focus", 'id="relation"']
     for fragment in forbidden_fragments:
         if fragment in html:
             raise RuntimeError(f"index.html still contains stale/degraded fragment: {fragment}")
@@ -131,6 +156,9 @@ def main() -> None:
         raise RuntimeError("styles.css missing 44px interactive target floor")
     if "--faint: #78818b" not in css:
         raise RuntimeError("styles.css missing approved accessible faint-text token")
+    for fragment in ('[data-media-state="failed"]', ".orientation-grid", ".architecture-lane", ".claim-evidence", ".page-shell"):
+        if fragment not in css:
+            raise RuntimeError(f"styles.css missing public-surface evolution fragment: {fragment}")
 
     tiny_rem = []
     for match in re.finditer(r"font-size:\s*([0-9]*\.?[0-9]+)rem", css):
@@ -159,8 +187,10 @@ def main() -> None:
         raise RuntimeError(f"sitemap.xml is invalid XML: {exc}") from exc
     namespace = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
     locations = [node.text.strip() for node in root.findall(f"{namespace}url/{namespace}loc") if node.text and node.text.strip()]
-    if SITE_URL not in locations:
-        raise RuntimeError(f"sitemap.xml missing canonical homepage URL: {SITE_URL}")
+    expected_locations = set(PUBLIC_PAGES.values())
+    missing_locations = sorted(expected_locations - set(locations))
+    if missing_locations:
+        raise RuntimeError(f"sitemap.xml missing public URLs: {missing_locations}")
 
     data = json.loads(DATA.read_text(encoding="utf-8"))
     for key in ("teo", "grox"):
@@ -185,7 +215,11 @@ def main() -> None:
         if actual != expected:
             raise RuntimeError(f"{relative} dimensions {actual} do not match {expected}")
 
-    print("site validation passed")
+    production_probe = ROOT / "scripts" / "verify_production_site.py"
+    if not production_probe.exists() or "vessaxor-production-smoke" not in production_probe.read_text(encoding="utf-8"):
+        raise RuntimeError("missing governed production smoke verifier")
+
+    print(f"site validation passed: {len(PUBLIC_PAGES)} public pages")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,59 @@
+.architecture-stack-summary { gap: 1rem; }
+.flow-steps-summary { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.flow-steps-summary li { min-height: 125px; }
+
+.proof-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .8rem;
+  margin-top: 1rem;
+}
+.proof-card {
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  text-decoration: none;
+}
+.proof-card-teo { border-top-color: rgba(233,121,34,.6); }
+.proof-card-grox { border-top-color: rgba(40,183,233,.6); }
+.proof-card span {
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.proof-card-teo span { color: var(--orange); }
+.proof-card-grox span { color: var(--cyan); }
+.proof-card strong {
+  margin-top: .45rem;
+  color: var(--paper);
+  font-size: .9rem;
+  line-height: 1.45;
+  font-weight: 560;
+}
+.proof-card code { font-family: var(--mono); font-size: .78rem; }
+.proof-card em {
+  margin-top: .4rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-style: normal;
+}
+.proof-card:hover, .proof-card:focus-visible { background: var(--surface-2); }
+
+@media (max-width: 980px) {
+  .proof-strip { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 700px) {
+  .flow-steps-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flow-steps-summary li { min-height: 96px; border-right: 1px solid var(--line); }
+  .flow-steps-summary li:nth-child(2n) { border-right: 0; }
+  .flow-steps-summary li:not(:last-child)::after { display: none; }
+  .flow-steps-summary strong { margin-top: .9rem; }
+}

@@ -1,4 +1,4 @@
-const DATA_URL = './data/projects.json';
+const DATA_URL = '/data/projects.json';
 
 function setText(selector, value) {
   const node = document.querySelector(selector);
@@ -91,10 +91,54 @@ function configureActiveNavigation() {
   targets.forEach((target) => observer.observe(target));
 }
 
+function configureReliableMedia() {
+  document.querySelectorAll('[data-reliable-media]').forEach((frame) => {
+    const image = frame.querySelector('img');
+    if (!image) return;
+
+    let fallbackAttempted = false;
+    const markLoaded = () => {
+      if (image.naturalWidth > 0) frame.dataset.mediaState = 'loaded';
+    };
+    const markFailed = () => {
+      frame.dataset.mediaState = 'failed';
+    };
+    const retryFallback = () => {
+      if (fallbackAttempted) {
+        markFailed();
+        return;
+      }
+      fallbackAttempted = true;
+      frame.querySelectorAll('source').forEach((source) => source.removeAttribute('srcset'));
+      image.removeAttribute('srcset');
+      const fallbackSrc = image.dataset.fallbackSrc;
+      if (!fallbackSrc) {
+        markFailed();
+        return;
+      }
+      image.src = fallbackSrc;
+    };
+
+    image.addEventListener('load', markLoaded);
+    image.addEventListener('error', retryFallback);
+
+    if (image.complete) {
+      if (image.naturalWidth > 0) markLoaded();
+      else retryFallback();
+    }
+
+    window.setTimeout(() => {
+      if (frame.dataset.mediaState === 'pending' && (!image.complete || image.naturalWidth === 0)) {
+        retryFallback();
+      }
+    }, 4500);
+  });
+}
+
 function configureReveals() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const targets = document.querySelectorAll(
-    '.system-panel, .relation-spine, .state-work-layout, .principles-list li, .source-links'
+    '.orientation-grid, .system-panel, .architecture-lane, .claim-evidence, .state-work-layout, .principles-disclosure, .source-links, .definition-grid, .evidence-record, .source-list'
   );
   targets.forEach((node) => node.classList.add('reveal'));
   const observer = new IntersectionObserver((entries) => {
@@ -110,4 +154,5 @@ function configureReveals() {
 loadPortfolioData();
 configureNavigation();
 configureActiveNavigation();
+configureReliableMedia();
 configureReveals();
