@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import html
 import json
 import os
+import re
 import tomllib
 import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "projects.json"
@@ -14,6 +17,42 @@ STATUS_URL = "https://raw.githubusercontent.com/vessaxor-spec/vessaxor-spec/main
 REPOS = {
     "teo": "vessaxor-spec/The-ever-evolving-orchestration-",
     "grox": "vessaxor-spec/GroX",
+}
+
+STATIC_BINDINGS: dict[Path, dict[str, tuple[str, ...]]] = {
+    ROOT / "index.html": {
+        "hero-teo-release": ("projects", "teo", "release"),
+        "hero-teo-status": ("projects", "teo", "status"),
+        "hero-grox-release": ("projects", "grox", "release"),
+        "hero-grox-status": ("projects", "grox", "status"),
+        "teo-release": ("projects", "teo", "release"),
+        "teo-status": ("projects", "teo", "status"),
+        "grox-release": ("projects", "grox", "release"),
+        "grox-status": ("projects", "grox", "status"),
+        "state-teo-release": ("projects", "teo", "release"),
+        "state-teo-status": ("projects", "teo", "status"),
+        "state-grox-release": ("projects", "grox", "release"),
+        "state-grox-status": ("projects", "grox", "status"),
+        "teo-focus": ("projects", "teo", "focus"),
+        "grox-focus": ("projects", "grox", "focus"),
+        "research-focus": ("research", "focus"),
+    },
+    ROOT / "teo" / "index.html": {
+        "teo-release": ("projects", "teo", "release"),
+        "teo-status": ("projects", "teo", "status"),
+        "teo-focus": ("projects", "teo", "focus"),
+    },
+    ROOT / "grox" / "index.html": {
+        "grox-release": ("projects", "grox", "release"),
+        "grox-status": ("projects", "grox", "status"),
+        "grox-focus": ("projects", "grox", "focus"),
+    },
+    ROOT / "evidence" / "index.html": {
+        "state-teo-release": ("projects", "teo", "release"),
+        "state-teo-status": ("projects", "teo", "status"),
+        "state-grox-release": ("projects", "grox", "release"),
+        "state-grox-status": ("projects", "grox", "status"),
+    },
 }
 
 
@@ -58,6 +97,48 @@ def validate_freshness(status: dict) -> date:
     return reviewed_at
 
 
+def nested_value(payload: dict[str, Any], path: tuple[str, ...]) -> str:
+    value: Any = payload
+    for key in path:
+        if not isinstance(value, dict) or key not in value:
+            raise RuntimeError(f"Missing public-state path: {'.'.join(path)}")
+        value = value[key]
+    if not isinstance(value, str) or not value:
+        raise RuntimeError(f"Public-state value must be a non-empty string: {'.'.join(path)}")
+    return value
+
+
+def replace_element_text(document: str, element_id: str, value: str) -> str:
+    pattern = re.compile(
+        rf'(<(?P<tag>[A-Za-z][\w:-]*)\b[^>]*\bid=["\']{re.escape(element_id)}["\'][^>]*>)(.*?)(</(?P=tag)>)',
+        re.DOTALL,
+    )
+    replacement = html.escape(value, quote=False)
+    updated, count = pattern.subn(
+        lambda match: f"{match.group(1)}{replacement}{match.group(4)}",
+        document,
+        count=1,
+    )
+    if count != 1:
+        raise RuntimeError(f"Expected exactly one element with id={element_id!r}")
+    return updated
+
+
+def sync_static_surfaces(payload: dict[str, Any], reviewed_at: date) -> None:
+    for path, bindings in STATIC_BINDINGS.items():
+        document = path.read_text(encoding="utf-8")
+        updated = document
+        for element_id, value_path in bindings.items():
+            updated = replace_element_text(updated, element_id, nested_value(payload, value_path))
+
+        if path == ROOT / "evidence" / "index.html":
+            updated = replace_element_text(updated, "reviewed-at", f"reviewed {display_date(reviewed_at)}")
+
+        if updated != document:
+            path.write_text(updated, encoding="utf-8")
+            print(f"synchronized {path.relative_to(ROOT)}")
+
+
 def main() -> None:
     status = tomllib.loads(request(STATUS_URL).decode("utf-8"))
     reviewed_at = validate_freshness(status)
@@ -87,6 +168,7 @@ def main() -> None:
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(f"wrote {OUTPUT.relative_to(ROOT)}")
+    sync_static_surfaces(payload, reviewed_at)
 
 
 if __name__ == "__main__":
