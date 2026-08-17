@@ -22,7 +22,8 @@
   <link rel="sitemap" type="application/xml" href="https://vessaxor-spec.github.io/sitemap.xml" />
   <link rel="icon" type="image/svg+xml" href="./assets/visuals/vessaxor-favicon.svg" />
   <link rel="preload" href="./assets/visuals/vessaxor-hero-720.webp" as="image" type="image/webp" media="(max-width: 640px)" />
-  <link rel="preload" href="./assets/visuals/vessaxor-hero-2172.webp" as="image" type="image/webp" media="(min-width: 641px)" />
+  <link rel="preload" href="./assets/visuals/vessaxor-hero-1800.webp" as="image" type="image/webp" media="(min-width: 641px) and (max-resolution: 1.49dppx)" />
+  <link rel="preload" href="./assets/visuals/vessaxor-hero.png" as="image" type="image/png" media="(min-width: 641px) and (min-resolution: 1.5dppx)" />
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -64,8 +65,14 @@
         </div>
         <picture>
           <source
+            type="image/png"
+            media="(min-width: 641px) and (min-resolution: 1.5dppx)"
+            srcset="./assets/visuals/vessaxor-hero.png 2172w"
+            sizes="(max-width: 1440px) 92vw, 1320px"
+          />
+          <source
             type="image/webp"
-            srcset="./assets/visuals/vessaxor-hero-720.webp 720w, ./assets/visuals/vessaxor-hero-1200.webp 1200w, ./assets/visuals/vessaxor-hero-1800.webp 1800w, ./assets/visuals/vessaxor-hero-2172.webp 2172w"
+            srcset="./assets/visuals/vessaxor-hero-720.webp 720w, ./assets/visuals/vessaxor-hero-1200.webp 1200w, ./assets/visuals/vessaxor-hero-1800.webp 1800w"
             sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1440px) 92vw, 1320px"
           />
           <img
