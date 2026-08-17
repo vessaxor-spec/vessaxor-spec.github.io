@@ -133,9 +133,18 @@ Completion standard: implementation items may be marked complete when source cha
 - [x] G201 Exact branch-head GitHub Actions validation passes.
 - [x] G202 Full homepage desktop/mobile render review passes with no overflow, missing media, or hierarchy regression.
 - [x] G203 Dedicated TEO/GroX/Evidence layouts pass desktop and mobile overflow/media checks.
-- [ ] G204 GitHub Pages production deployment succeeds after merge.
-- [ ] G205 Post-deploy production smoke confirms all public pages and critical hero/banner assets resolve from the live Pages surface.
+- [x] G204 GitHub Pages production deployment succeeds after merge.
+- [x] G205 Post-deploy production smoke confirms all public pages and critical hero/banner assets resolve from the live Pages surface.
+
+### Program 2 production evidence
+
+- Final PR #7 review head `d51356c18852ac1e4e4cfe6248c7528f11b1be0f` passed GitHub Actions run #47 (`32006231647`): source refresh, visual synchronization, responsive-media generation, four-page static validation, homepage desktop/mobile render review, dedicated TEO/GroX/Evidence desktop/mobile layout checks, forced hero-fallback verification, and render-artifact upload.
+- Human review rejected an earlier overlong homepage even though CI was green. The accepted render reduced the homepage from 7490 to 6966 px on desktop and from 10530 to 8643 px on mobile while moving full architecture depth to the dedicated system pages.
+- PR #7 was squash-merged to `main` as `e6581ae398d8b6d706d4b1b1d24fb2dd4dc34aa6`.
+- Production workflow run #48 (`32006382178`) passed validation, Pages artifact construction, render/reliability review, GitHub Pages deployment, and the new `verify-production` live smoke job.
+- The live smoke gate verified the deployed homepage, `/teo/`, `/grox/`, `/evidence/`, the hero 720/1200/1800 WebP derivatives, the approved hero PNG fallback, and the TEO/GroX flagship banner assets with bounded retries.
+- The external web-fetch tool could not independently fetch the GitHub Pages URL in this session; that tool-layer cache/safety failure is not treated as contrary production evidence. The governed GitHub Actions smoke test is the recorded production reachability evidence.
 
 ### Program 2 current state
 
-**PR EVIDENCE PASS / PRODUCTION GATES OPEN — run #42 (`32005605691`) passed source refresh, visual synchronization, responsive media generation, four-page static validation, homepage desktop/mobile render capture, dedicated TEO/GroX/Evidence desktop/mobile layout checks, forced hero-fallback verification, and render-artifact upload. Production deployment and live post-deploy smoke remain gated on merge. Non-Chromium reproduction remains an explicit open evidence gap.**
+**DEPLOYED / PRODUCTION GATES PASS — P1 through P5 are implemented and production-verified. P0 fail-visible hardening and live production reachability checks are operational. R06 remains open because the originally reported intermittent hero failure has not yet been reproduced in a non-Chromium engine; this is retained as an explicit evidence gap rather than converted into a false root-cause claim.**
