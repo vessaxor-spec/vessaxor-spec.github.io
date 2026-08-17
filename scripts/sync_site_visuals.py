@@ -2,8 +2,11 @@
 from __future__ import annotations
 
 import hashlib
+import os
 import struct
 import tempfile
+import time
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -29,6 +32,8 @@ ASSETS = {
 }
 
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+TRANSIENT_HTTP = {429, 500, 502, 503, 504}
+MAX_FETCH_ATTEMPTS = 4
 
 
 def png_dimensions(payload: bytes) -> tuple[int, int]:
@@ -38,9 +43,34 @@ def png_dimensions(payload: bytes) -> tuple[int, int]:
 
 
 def fetch(url: str) -> bytes:
-    request = urllib.request.Request(url, headers={"User-Agent": "vessaxor-pages-visual-sync"})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return response.read()
+    headers = {
+        "User-Agent": "vessaxor-pages-visual-sync",
+        "Accept": "application/octet-stream",
+    }
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    last_error: Exception | None = None
+    for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
+        request = urllib.request.Request(url, headers=headers)
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return response.read()
+        except urllib.error.HTTPError as exc:
+            last_error = exc
+            if exc.code not in TRANSIENT_HTTP or attempt == MAX_FETCH_ATTEMPTS:
+                raise
+        except urllib.error.URLError as exc:
+            last_error = exc
+            if attempt == MAX_FETCH_ATTEMPTS:
+                raise
+
+        delay = min(2 ** (attempt - 1), 8)
+        print(f"transient visual fetch failure; retrying in {delay}s (attempt {attempt}/{MAX_FETCH_ATTEMPTS})")
+        time.sleep(delay)
+
+    raise RuntimeError(f"visual fetch failed after retries: {last_error}")
 
 
 def main() -> None:
