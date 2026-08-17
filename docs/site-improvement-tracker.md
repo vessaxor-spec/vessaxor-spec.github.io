@@ -92,7 +92,10 @@ Completion standard: implementation items may be marked complete when source cha
 - [x] R03 Add an explicit hero preload for the primary desktop WebP candidate without introducing a new runtime dependency.
 - [x] R04 Extend render validation to exercise the media error path and assert the fallback remains visible.
 - [x] R05 Add a post-deploy production smoke verifier for the homepage, new public pages, hero derivatives, PNG fallback, and flagship banners.
-- [ ] R06 Reproduce the reported intermittent hero failure in a non-Chromium browser engine. Current CI has Chromium only; no new third-party browser runtime is introduced without evidence that the remaining repro gap justifies the supply-chain and maintenance cost.
+- [ ] R06 Reproduce the reported intermittent hero failure in a non-Chromium browser engine. The runner-native Firefox path is now active without adding a browser or package dependency; the original failure remains unreproduced.
+  - [x] R06a Add bounded cold-profile Firefox coverage on desktop/mobile using runner-provided Firefox + Geckodriver and Python standard library WebDriver calls.
+  - [x] R06b PR #9 run #51 (`32037541384`) exercised Firefox 153.0.3 / Geckodriver 0.37.1 across 8 fresh alternating desktop/mobile sessions; all hero loads settled to `loaded` with the expected responsive WebP and no failure was reproduced.
+  - [ ] R06c Verify the same Firefox cold-load path against the deployed Pages surface after merge.
 
 ### P1 — Outsider comprehension
 
@@ -147,4 +150,4 @@ Completion standard: implementation items may be marked complete when source cha
 
 ### Program 2 current state
 
-**DEPLOYED / PRODUCTION GATES PASS — P1 through P5 are implemented and production-verified. P0 fail-visible hardening and live production reachability checks are operational. R06 remains open because the originally reported intermittent hero failure has not yet been reproduced in a non-Chromium engine; this is retained as an explicit evidence gap rather than converted into a false root-cause claim.**
+**DEPLOYED / FIREFOX R06 BRANCH EVIDENCE PASS — P1 through P5 and the P0 fail-visible/live-reachability controls are production-verified. PR #9 run #51 added the first non-Chromium browser evidence: 8/8 fresh Firefox 153.0.3 desktop/mobile sessions loaded the hero correctly, so the original intermittent failure was not reproduced. The remaining R06 step is production Firefox verification after merge; root cause remains unclaimed.**
