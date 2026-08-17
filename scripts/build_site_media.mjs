@@ -150,8 +150,9 @@ async function main() {
       for (const file of SOURCE_FILES) {
         const stem = file.replace(/\.png$/, '');
         const image = sourcePayloads.get(file);
+        const quality = file === 'vessaxor-hero.png' ? 96 : 90;
         for (const width of WIDTHS) {
-          await capture(cdp, image, width, Math.round(width / 3), 'webp', 90, join(VISUAL_DIR, `${stem}-${width}.webp`));
+          await capture(cdp, image, width, Math.round(width / 3), 'webp', quality, join(VISUAL_DIR, `${stem}-${width}.webp`));
         }
       }
       await capture(
