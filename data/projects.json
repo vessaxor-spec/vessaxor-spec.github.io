@@ -1,7 +1,7 @@
 {
   "generated_at": "baseline",
   "profile": {
-    "reviewed_at": "16 Aug 2026"
+    "reviewed_at": "17 Aug 2026"
   },
   "projects": {
     "teo": {
@@ -10,9 +10,9 @@
       "focus": "Evidence-governed live execution expansion, with provider-backed controlled documentation replay evidence as the next gate."
     },
     "grox": {
-      "release": "v0.7.1",
+      "release": "v0.8.0",
       "status": "APEX QUALIFIED",
-      "focus": "Post-Apex Operational Evolution Program 001, with A6 longitudinal operational drift analysis as the next approved stage."
+      "focus": "Post-Apex Evolution Program 001 is integrated and v0.8.0 is published; future evolution must preserve the qualified Apex invariants rather than inherit them automatically."
     }
   },
   "research": {

@@ -5,8 +5,10 @@ import json
 import re
 import struct
 import xml.etree.ElementTree as ET
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
@@ -20,6 +22,42 @@ PUBLIC_PAGES = {
     "teo/index.html": f"{SITE_URL}teo/",
     "grox/index.html": f"{SITE_URL}grox/",
     "evidence/index.html": f"{SITE_URL}evidence/",
+}
+
+STATE_BINDINGS: dict[str, dict[str, tuple[str, ...]]] = {
+    "index.html": {
+        "hero-teo-release": ("projects", "teo", "release"),
+        "hero-teo-status": ("projects", "teo", "status"),
+        "hero-grox-release": ("projects", "grox", "release"),
+        "hero-grox-status": ("projects", "grox", "status"),
+        "teo-release": ("projects", "teo", "release"),
+        "teo-status": ("projects", "teo", "status"),
+        "grox-release": ("projects", "grox", "release"),
+        "grox-status": ("projects", "grox", "status"),
+        "state-teo-release": ("projects", "teo", "release"),
+        "state-teo-status": ("projects", "teo", "status"),
+        "state-grox-release": ("projects", "grox", "release"),
+        "state-grox-status": ("projects", "grox", "status"),
+        "teo-focus": ("projects", "teo", "focus"),
+        "grox-focus": ("projects", "grox", "focus"),
+        "research-focus": ("research", "focus"),
+    },
+    "teo/index.html": {
+        "teo-release": ("projects", "teo", "release"),
+        "teo-status": ("projects", "teo", "status"),
+        "teo-focus": ("projects", "teo", "focus"),
+    },
+    "grox/index.html": {
+        "grox-release": ("projects", "grox", "release"),
+        "grox-status": ("projects", "grox", "status"),
+        "grox-focus": ("projects", "grox", "focus"),
+    },
+    "evidence/index.html": {
+        "state-teo-release": ("projects", "teo", "release"),
+        "state-teo-status": ("projects", "teo", "status"),
+        "state-grox-release": ("projects", "grox", "release"),
+        "state-grox-status": ("projects", "grox", "status"),
+    },
 }
 
 EXPECTED_PNGS = {
@@ -122,6 +160,53 @@ def validate_html(path: Path, canonical: str) -> str:
     return html
 
 
+def nested_value(payload: dict[str, Any], path: tuple[str, ...]) -> str:
+    value: Any = payload
+    for key in path:
+        if not isinstance(value, dict) or key not in value:
+            raise RuntimeError(f"projects.json missing {'.'.join(path)}")
+        value = value[key]
+    if not isinstance(value, str) or not value.strip():
+        raise RuntimeError(f"projects.json value must be a non-empty string: {'.'.join(path)}")
+    return value
+
+
+def element_text(document: str, element_id: str) -> str:
+    pattern = re.compile(
+        rf'<(?P<tag>[A-Za-z][\w:-]*)\b[^>]*\bid=["\']{re.escape(element_id)}["\'][^>]*>(.*?)</(?P=tag)>',
+        re.DOTALL,
+    )
+    matches = pattern.findall(document)
+    if len(matches) != 1:
+        raise RuntimeError(f"expected exactly one element with id={element_id!r}, found {len(matches)}")
+    # findall returns tuples because the tag is a named capture; the final item is the body.
+    body = matches[0][-1] if isinstance(matches[0], tuple) else matches[0]
+    if re.search(r"<[^>]+>", body):
+        raise RuntimeError(f"state-bound element id={element_id!r} must contain text only")
+    return unescape(body).strip()
+
+
+def validate_static_state(pages: dict[str, str], data: dict[str, Any]) -> None:
+    for relative, bindings in STATE_BINDINGS.items():
+        document = pages[relative]
+        for element_id, value_path in bindings.items():
+            expected = nested_value(data, value_path)
+            actual = element_text(document, element_id)
+            if actual != expected:
+                raise RuntimeError(
+                    f"{relative} static public state drift for #{element_id}: {actual!r} != {expected!r}"
+                )
+
+    reviewed = nested_value(data, ("profile", "reviewed_at"))
+    evidence_reviewed = element_text(pages["evidence/index.html"], "reviewed-at")
+    expected_reviewed = f"reviewed {reviewed}"
+    if evidence_reviewed != expected_reviewed:
+        raise RuntimeError(
+            "evidence/index.html static reviewed-at drift: "
+            f"{evidence_reviewed!r} != {expected_reviewed!r}"
+        )
+
+
 def main() -> None:
     pages: dict[str, str] = {}
     for relative, canonical in PUBLIC_PAGES.items():
@@ -198,6 +283,7 @@ def main() -> None:
         for field in ("release", "status", "focus"):
             if not isinstance(project.get(field), str) or not project[field].strip():
                 raise RuntimeError(f"projects.json missing projects.{key}.{field}")
+    validate_static_state(pages, data)
 
     for relative, expected in EXPECTED_PNGS.items():
         path = ROOT / relative
