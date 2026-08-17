@@ -5,7 +5,9 @@ import html
 import json
 import os
 import re
+import time
 import tomllib
+import urllib.error
 import urllib.request
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -18,6 +20,8 @@ REPOS = {
     "teo": "vessaxor-spec/The-ever-evolving-orchestration-",
     "grox": "vessaxor-spec/GroX",
 }
+TRANSIENT_HTTP = {429, 500, 502, 503, 504}
+MAX_REQUEST_ATTEMPTS = 4
 
 STATIC_BINDINGS: dict[Path, dict[str, tuple[str, ...]]] = {
     ROOT / "index.html": {
@@ -59,10 +63,33 @@ STATIC_BINDINGS: dict[Path, dict[str, tuple[str, ...]]] = {
 def request(url: str) -> bytes:
     headers = {"User-Agent": "vessaxor-pages-builder", "Accept": "application/vnd.github+json"}
     token = os.environ.get("GITHUB_TOKEN")
-    if token and "api.github.com" in url:
+    if token and ("api.github.com" in url or "raw.githubusercontent.com" in url):
         headers["Authorization"] = f"Bearer {token}"
-    with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=20) as response:
-        return response.read()
+
+    last_error: Exception | None = None
+    for attempt in range(1, MAX_REQUEST_ATTEMPTS + 1):
+        try:
+            with urllib.request.urlopen(
+                urllib.request.Request(url, headers=headers), timeout=20
+            ) as response:
+                return response.read()
+        except urllib.error.HTTPError as exc:
+            last_error = exc
+            if exc.code not in TRANSIENT_HTTP or attempt == MAX_REQUEST_ATTEMPTS:
+                raise
+        except urllib.error.URLError as exc:
+            last_error = exc
+            if attempt == MAX_REQUEST_ATTEMPTS:
+                raise
+
+        delay = min(2 ** (attempt - 1), 8)
+        print(
+            f"transient public-state request failure; retrying in {delay}s "
+            f"(attempt {attempt}/{MAX_REQUEST_ATTEMPTS})"
+        )
+        time.sleep(delay)
+
+    raise RuntimeError(f"public-state request failed after retries: {last_error}")
 
 
 def latest_release(repository: str) -> str:
