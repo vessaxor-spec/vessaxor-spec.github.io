@@ -24,10 +24,25 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
 - [x] P308 Extend `generate_site_data.py` so the generated public-state payload also synchronizes state-bound text in the deployable HTML surfaces.
 - [x] P309 Reconcile the committed `data/projects.json` fallback to GroX `v0.8.0` and the 17 Aug 2026 curated state.
 - [x] P310 Add fail-closed validation requiring deployed static HTML state to match generated JSON state for homepage, TEO, GroX, and Evidence surfaces.
-- [ ] P311 Exact-head GitHub Actions validates generation, state synchronization, Chromium render/reliability checks, and Firefox matrix.
-- [ ] P312 Human review confirms the state-only change causes no layout or hierarchy regression.
-- [ ] P313 Production Pages deployment succeeds after merge.
-- [ ] P314 Production live HTTP and Firefox gates pass on the deployed state-integrity change.
+- [x] P311 Exact-head GitHub Actions validates generation, state synchronization, Chromium render/reliability checks, and Firefox matrix.
+- [x] P312 Human review confirms the state-only change causes no layout or hierarchy regression.
+- [x] P313 Production Pages deployment succeeds after merge.
+- [x] P314 Production live HTTP and Firefox gates pass on the deployed state-integrity change.
+
+### Program 3 evidence
+
+- Profile PR #4 reconciled the curated public source to 17 Aug 2026 / GroX `v0.8.0`; branch run #10 (`32040390234`) and post-merge main run #11 (`32040715013`) passed.
+- Site PR #11 exact head `85a7a28b13e0041482c8cf06eff5aa37680944e9` passed run #58 (`32040850841`): canonical state generation, deployable HTML synchronization, pinned visual synchronization, HTML/JSON state equality, Chromium render/reliability, eight Firefox cold-load sessions, and render-artifact publication.
+- Human review of the PR #11 render artifact found no layout, hierarchy, responsive, or media regression; visible changes were limited to reconciled public-state text.
+- Production run #59 (`32041046639`) failed safely before artifact construction on a raw-host HTTP 503 while reading canonical profile state. PR #12 added bounded authenticated state-fetch resilience without allowing stale fallback.
+- Production run #61 (`32041284100`) then proved state retrieval but failed safely before deployment when one parallel Pages-build runner exhausted four raw-host visual retries with HTTP 429 while the validation runner passed the same visual gate.
+- PR #13 moved canonical profile and approved visual inputs from `raw.githubusercontent.com` to authenticated GitHub Contents API reads while retaining freshness, repository allowlisting, release lookup, exact SHA-256, exact dimensions, atomic replacement, and fail-closed validation.
+- PR #13 exact head `c809785da78f767f9e96c29f1e019ff53fc3e557` passed run #62 (`32041499889`) across state/API reads, all three pinned visual reads, state equality, Chromium, eight Firefox cold loads, and artifact publication.
+- Production run #63 (`32041589000`) passed both `build-pages` and `validate`, deployed GitHub Pages successfully, passed live page/media HTTP smoke, and passed four deployed Firefox cold-load sessions against the actual production site.
+
+### Program 3 state
+
+**CLOSED / CONTINUOUS STATE-INTEGRITY COVERAGE — canonical profile state, generated JSON, deployable static HTML, approved visual identity, Chromium rendering, Firefox cold loads, production HTTP reachability, and cross-repository source retrieval are governed by fail-closed checks. Raw-CDN build inputs have been removed from the critical source path.**
 
 ## Program 4 — External Discoverability
 
@@ -46,4 +61,4 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
 
 ## Current state
 
-**IN PROGRESS — canonical profile state is reconciled and merged. Portfolio build-time static-state synchronization and drift validation are implemented on `agent/public-state-integrity`; exact-head CI and production gates remain open. External discoverability work begins only after this integrity gate closes.**
+**PROGRAM 3 CLOSED / PROGRAM 4 ACTIVE — public-state integrity is production-qualified. The next executable step is D403: add reciprocal public-overview links from TEO and GroX README entry surfaces. Repository/profile About metadata remains an explicit tool-capability gap, and search re-evaluation remains time-dependent.**
