@@ -15,7 +15,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "projects.json"
-STATUS_URL = "https://raw.githubusercontent.com/vessaxor-spec/vessaxor-spec/main/profile/status.toml"
+STATUS_URL = "https://api.github.com/repos/vessaxor-spec/vessaxor-spec/contents/profile/status.toml?ref=main"
 REPOS = {
     "teo": "vessaxor-spec/The-ever-evolving-orchestration-",
     "grox": "vessaxor-spec/GroX",
@@ -60,10 +60,14 @@ STATIC_BINDINGS: dict[Path, dict[str, tuple[str, ...]]] = {
 }
 
 
-def request(url: str) -> bytes:
-    headers = {"User-Agent": "vessaxor-pages-builder", "Accept": "application/vnd.github+json"}
+def request(url: str, *, accept: str = "application/vnd.github+json") -> bytes:
+    headers = {
+        "User-Agent": "vessaxor-pages-builder",
+        "Accept": accept,
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
     token = os.environ.get("GITHUB_TOKEN")
-    if token and ("api.github.com" in url or "raw.githubusercontent.com" in url):
+    if token and "api.github.com" in url:
         headers["Authorization"] = f"Bearer {token}"
 
     last_error: Exception | None = None
@@ -167,7 +171,9 @@ def sync_static_surfaces(payload: dict[str, Any], reviewed_at: date) -> None:
 
 
 def main() -> None:
-    status = tomllib.loads(request(STATUS_URL).decode("utf-8"))
+    status = tomllib.loads(
+        request(STATUS_URL, accept="application/vnd.github.raw+json").decode("utf-8")
+    )
     reviewed_at = validate_freshness(status)
 
     for key, repository in REPOS.items():
