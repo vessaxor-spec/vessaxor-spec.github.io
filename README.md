@@ -8,7 +8,16 @@ No analytics, trackers, cookies, remote fonts, external frontend frameworks, or 
 
 ## Improvement program
 
-The senior-principal audit remediation is tracked in [`docs/site-improvement-tracker.md`](docs/site-improvement-tracker.md). An item is not considered closed until implementation and its required validation evidence are both present.
+The canonical implementation and evidence ledger is [`docs/site-improvement-tracker.md`](docs/site-improvement-tracker.md). It contains the closed senior-principal remediation program and the 17 Aug 2026 Public Surface Evolution program covering hero reliability, outsider comprehension, architecture/evidence visualization, dedicated system pages, claim-to-evidence design, and discoverability.
+
+## Public surfaces
+
+- `/` — VESSAXOR portfolio orientation, flagship systems, architecture, and current state
+- `/teo/` — TEO technical overview, routing architecture, runnable evidence, boundaries, and primary sources
+- `/grox/` — GroX technical overview, command/Mission architecture, persistence/recovery evidence, boundaries, and primary sources
+- `/evidence/` — selected `Claim → Evidence → Boundary → Primary source` records across the public systems
+
+The repositories remain authoritative. These pages are explanatory and evidentiary public surfaces, not replacement sources of truth.
 
 ## Local preview
 
@@ -34,18 +43,25 @@ node --check app.js
 
 `scripts/build_site_media.mjs` uses only Node built-ins plus the existing Chrome/Chromium runtime through the Chrome DevTools Protocol. It does not install npm packages, Python imaging libraries, or system packages.
 
-Validation covers public state, source-banner identity, responsive media dimensions, duplicate IDs, internal anchors, image alt text, heading-order regressions, micro-type floor, accessible focus treatment, SEO discovery surfaces, and expected portfolio structure.
+Validation covers all public pages, public state, source-banner identity, responsive media dimensions, duplicate IDs, internal anchors, image alt text, heading order, micro-type floor, accessible focus treatment, canonical/search surfaces, reliability fallback markup, and expected portfolio structure.
 
-Pull-request CI also captures desktop and mobile render screenshots for human visual regression review.
+Pull-request CI captures homepage desktop/mobile render screenshots, checks dedicated TEO/GroX/Evidence layouts at desktop and mobile widths, and exercises the fail-visible hero fallback path.
+
+## Reliability model
+
+The hero and flagship banners use responsive WebP delivery with approved PNG fallbacks. The hero additionally has an asset-independent HTML/CSS fallback so a media failure cannot reduce the primary visual surface to an empty black field. Client-side recovery removes failed responsive candidates, retries the approved PNG, then exposes the static fallback if media still cannot render.
+
+After Pages deployment, `scripts/verify_production_site.py` probes the live homepage, TEO/GroX/Evidence pages, hero derivatives, PNG fallback, and flagship banners with bounded retries. Build success therefore does not stand in for production asset reachability.
 
 ## Search discovery
 
-The site exposes a minimal crawl/indexing foundation:
+The site exposes a crawl/indexing foundation:
 
 - `robots.txt` permits public crawling and advertises the canonical sitemap
-- `sitemap.xml` lists the canonical portfolio homepage
-- `index.html` declares `index,follow`, the canonical URL, large-image preview permission, WebSite structured data, a dedicated favicon, and a dedicated 1200×630 social preview
+- `sitemap.xml` lists the homepage plus dedicated TEO, GroX, and Evidence surfaces
+- every public page declares index/follow, a distinct canonical URL, descriptive title/description metadata, Open Graph/Twitter metadata, and JSON-LD context
 - Google Search Console ownership is retained through the root verification file
+- internal links connect the public overview, system explanations, evidence surface, and canonical GitHub repositories
 
 ## Public-state and media pipeline
 
@@ -57,5 +73,7 @@ The site exposes a minimal crawl/indexing foundation:
 - generated responsive media: 720/1200/1800 WebP derivatives plus PNG fallback
 - generated social media: 1200×630 VESSAXOR Open Graph preview
 - validation: `scripts/validate_site.py`
+- render/reliability review: `scripts/capture_site_render.mjs`
+- production smoke: `scripts/verify_production_site.py`
 - deployment: GitHub Pages via `.github/workflows/deploy-pages.yml`
 - pull requests: validation and render review only; Pages deployment remains restricted to non-PR events

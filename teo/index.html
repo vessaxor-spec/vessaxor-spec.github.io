@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090c" />
+  <meta name="description" content="TEO is VESSAXOR's vendor-neutral orchestration specification and runnable reference control plane for responsibility, capability, authority, fallback, and independent verification." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta property="og:title" content="TEO — Governed AI Orchestration | VESSAXOR" />
+  <meta property="og:description" content="Understand how TEO routes work by responsibility and capability before implementation, and how evidence and independent verification constrain outcomes." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vessaxor-spec.github.io/teo/" />
+  <meta property="og:image" content="https://vessaxor-spec.github.io/assets/visuals/teo-social-preview-v2.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TEO — Governed AI Orchestration | VESSAXOR" />
+  <meta name="twitter:description" content="Responsibility before implementation. Capability before provider. Evidence before completion." />
+  <meta name="twitter:image" content="https://vessaxor-spec.github.io/assets/visuals/teo-social-preview-v2.webp" />
+  <link rel="canonical" href="https://vessaxor-spec.github.io/teo/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/visuals/vessaxor-favicon.svg" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "TEO — Governed AI Orchestration",
+      "url": "https://vessaxor-spec.github.io/teo/",
+      "description": "Public technical overview of The Ever-Evolving Orchestration (TEO), its routing architecture, authority boundaries, and evidence model.",
+      "isPartOf": {"@type": "WebSite", "name": "VESSAXOR — Living Systems Lab", "url": "https://vessaxor-spec.github.io/"},
+      "about": {"@type": "SoftwareSourceCode", "name": "The Ever-Evolving Orchestration", "codeRepository": "https://github.com/vessaxor-spec/The-ever-evolving-orchestration-"}
+    }
+  </script>
+  <title>TEO — Governed AI Orchestration | VESSAXOR</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="wordmark" href="/" aria-label="VESSAXOR home">VESSAXOR</a>
+    <p class="header-note">Living Systems Lab</p>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Site navigation">
+      <a href="/">Home</a>
+      <a class="is-active" href="/teo/">TEO</a>
+      <a href="/grox/">GroX</a>
+      <a href="/evidence/">Evidence</a>
+      <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">Repository ↗</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="page-masthead" aria-labelledby="page-title">
+      <div class="page-masthead-grid">
+        <div>
+          <p class="page-kicker">TEO / CONTROL PLANE</p>
+          <div class="page-meta" aria-label="Current TEO state">
+            <span class="meta-teo" id="teo-release">v1.0.0</span>
+            <span id="teo-status">reference_operational</span>
+          </div>
+        </div>
+        <div>
+          <h1 id="page-title">Who should do the work?</h1>
+          <p class="page-deck">TEO resolves responsibility, effective risk, required capability, implementation eligibility, fallback, and verification before a result can become an evidence-bearing outcome.</p>
+        </div>
+      </div>
+      <figure class="system-page-art reliable-media" data-reliable-media data-media-state="pending">
+        <span class="system-media-fallback media-fallback" aria-hidden="true"><strong>TEO</strong><em>Models evolve. Responsibilities endure.</em></span>
+        <picture>
+          <source type="image/webp" srcset="/assets/visuals/teo-banner-720.webp 720w, /assets/visuals/teo-banner-1200.webp 1200w, /assets/visuals/teo-banner-1800.webp 1800w" sizes="(max-width: 1260px) 92vw, 1260px" />
+          <img src="/assets/visuals/teo-banner.png" data-fallback-src="/assets/visuals/teo-banner.png" alt="The Ever-Evolving Orchestration banner." width="2172" height="724" decoding="async" fetchpriority="high" />
+        </picture>
+      </figure>
+    </section>
+
+    <section class="page-section" id="definition" aria-labelledby="definition-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">01 / DEFINITION</p>
+        <div>
+          <h2 id="definition-title">Plain meaning first. Exact architecture second.</h2>
+          <p>The public layer translates TEO without replacing its native terminology or authority model.</p>
+        </div>
+      </header>
+      <div class="definition-grid">
+        <article class="plain-definition">
+          <span class="source-label">PLAIN LANGUAGE</span>
+          <h3>TEO is a governed decision layer for AI work.</h3>
+          <p>It decides which responsibility owns a task, what capability the work requires, which implementations are eligible, how fallback may occur, and when an independent verifier is mandatory.</p>
+        </article>
+        <article>
+          <span class="source-label">EXACT SYSTEM CLAIM</span>
+          <h3>Vendor-neutral orchestration specification and runnable reference control plane.</h3>
+          <p>TEO separates what a task requires from which model implements it today. Provider access, credentials, subscriptions, and billing do not become routing authority.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="architecture" aria-labelledby="architecture-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">02 / CONTROL PATH</p>
+        <div>
+          <h2 id="architecture-title">Responsibility before implementation.</h2>
+          <p>The current public control path resolves the task and its governing constraints before an implementation is selected.</p>
+        </div>
+      </header>
+      <article class="architecture-lane architecture-teo">
+        <header>
+          <span>TEO / CANONICAL FLOW</span>
+          <h3>Task → evidence-bearing outcome</h3>
+          <p>The detailed repository path includes Mission Control, Team, Worker, optional Specialist, recovery routing, and independent verification.</p>
+        </header>
+        <ol class="flow-steps">
+          <li><span>01</span><strong>Task</strong><em>Requested work.</em></li>
+          <li><span>02</span><strong>Effective risk</strong><em>Risk is a floor.</em></li>
+          <li><span>03</span><strong>Responsibility</strong><em>Team and Worker.</em></li>
+          <li><span>04</span><strong>Capability</strong><em>Required before provider.</em></li>
+          <li><span>05</span><strong>Implementation</strong><em>Eligible route only.</em></li>
+          <li><span>06</span><strong>Verifier</strong><em>Independent where required.</em></li>
+          <li><span>07</span><strong>Outcome</strong><em>Evidence-aware finalization.</em></li>
+        </ol>
+      </article>
+    </section>
+
+    <section class="page-section" id="evidence" aria-labelledby="evidence-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">03 / CLAIM → EVIDENCE</p>
+        <div>
+          <h2 id="evidence-title">The reference path can be inspected and run.</h2>
+          <p>These are current public artifacts, not invented product demos.</p>
+        </div>
+      </header>
+      <div class="claim-evidence-grid">
+        <article class="claim-evidence claim-evidence-teo">
+          <p class="claim-label">CLAIM</p>
+          <h3>Planning creates an auditable dispatch.</h3>
+          <p class="claim-plain">The reference CLI plans a task into a dispatch and writes an audit log.</p>
+          <dl>
+            <div><dt>Command</dt><dd><code>teo --repo-root . plan reference/examples/phase5-task.yaml --output /tmp/teo-dispatch.json --audit-log /tmp/teo-audit.jsonl</code></dd></div>
+            <div><dt>Primary source</dt><dd>Repository Quick Start and Python reference router.</dd></div>
+          </dl>
+          <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-#quick-start">Open Quick Start ↗</a>
+        </article>
+        <article class="claim-evidence claim-evidence-teo">
+          <p class="claim-label">CLAIM</p>
+          <h3>Completion is not merely executor output.</h3>
+          <p class="claim-plain">Finalization takes the dispatch, execution result, and verification result as distinct artifacts.</p>
+          <dl>
+            <div><dt>Command</dt><dd><code>teo --repo-root . finalize /tmp/teo-dispatch.json execution-result.json verification-result.json</code></dd></div>
+            <div><dt>Boundary</dt><dd>Consequential work must preserve route-appropriate verification and fail closed when no eligible verifier remains.</dd></div>
+          </dl>
+          <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-/blob/main/CONSTITUTION.md">Read the Constitution ↗</a>
+        </article>
+      </div>
+      <p class="boundary-note boundary-note-teo"><strong>Current boundary:</strong> `reference_operational` does not mean unrestricted live authority. The current repository explicitly distinguishes guarded live scope, staged candidates, research evidence, and unsupported claims.</p>
+    </section>
+
+    <section class="page-section" id="state" aria-labelledby="state-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">04 / CURRENT STATE</p>
+        <div>
+          <h2 id="state-title">State is public and bounded.</h2>
+          <p id="teo-focus">Evidence-governed live execution expansion, with provider-backed controlled documentation replay evidence as the next gate.</p>
+        </div>
+      </header>
+      <div class="source-list" aria-label="TEO primary sources">
+        <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-"><strong>Repository</strong><em>Public source body</em></a>
+        <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-/blob/main/docs/stewardship/progress-tracker.md"><strong>Progress tracker</strong><em>Canonical current status</em></a>
+        <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-/blob/main/policy/routing/core/routing.yaml"><strong>Routing policy</strong><em>Canonical routing source</em></a>
+        <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-/blob/main/reference/implementations/python/README.md"><strong>Reference router</strong><em>Runnable implementation guide</em></a>
+      </div>
+    </section>
+
+    <div class="page-exit">
+      <a class="action action-primary" href="/grox/">Next: GroX →</a>
+      <a class="action" href="/evidence/">Evidence surface →</a>
+      <a class="action" href="/">Back to VESSAXOR</a>
+    </div>
+  </main>
+
+  <footer class="site-footer"><p>VESSAXOR / TEO</p><p>Models evolve. Responsibilities endure.</p></footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -71,6 +71,71 @@ Completion standard: an item is complete only when the implementation exists on 
 - Lighthouse is controlled lab evidence. CrUX real-user field metrics, including field INP, are not supplied by this evidence path and are therefore not claimed. Absence of a real-user claim is not converted into synthetic field data.
 - The build-time source visual sync remains fail-closed on exact dimensions and approved SHA-256 digests for VESSAXOR, TEO, and GroX source banners.
 
-## Program state
+## Senior-principal remediation program state
 
 **CLOSED — all approved senior-principal audit remediation items and final evidence gates are complete as of 16 Aug 2026.**
+
+---
+
+## Program 2 — Public Surface Evolution
+
+Approved 17 Aug 2026 after review of the VESSAXOR swarm audit and follow-up practical improvement plan.
+
+Goal: turn the portfolio from a description of rigorous systems into a visible demonstration of rigorous systems without reopening already-proven accessibility, performance, mobile, or deployment architecture work without new evidence.
+
+Completion standard: implementation items may be marked complete when source changes and local validation exist. Deployment gates remain open until the exact branch head passes GitHub Actions, rendered review, Pages deployment, and production smoke verification.
+
+### P0 — Hero reliability and production resilience
+
+- [x] R01 Add a fail-visible, asset-independent hero fallback so media failure cannot become a black void.
+- [x] R02 Add bounded client-side media recovery: responsive source failure retries the approved PNG fallback, then exposes the static fallback if recovery also fails.
+- [x] R03 Add an explicit hero preload for the primary desktop WebP candidate without introducing a new runtime dependency.
+- [x] R04 Extend render validation to exercise the media error path and assert the fallback remains visible.
+- [x] R05 Add a post-deploy production smoke verifier for the homepage, new public pages, hero derivatives, PNG fallback, and flagship banners.
+- [ ] R06 Reproduce the reported intermittent hero failure in a non-Chromium browser engine. Current CI has Chromium only; no new third-party browser runtime is introduced without evidence that the remaining repro gap justifies the supply-chain and maintenance cost.
+
+### P1 — Outsider comprehension
+
+- [x] O01 Add a short orientation layer: what VESSAXOR is, what it is not, and why the architecture matters.
+- [x] O02 Lead TEO and GroX descriptions with plain-language meaning before exact native system terminology.
+- [x] O03 Preserve current release/state evidence in the hero and system surfaces.
+- [x] O04 Move dense principles behind native progressive disclosure rather than forcing them into the primary scan path.
+
+### P2 — Architecture and real evidence
+
+- [x] E01 Add visible TEO routing flow from task/effective risk through responsibility, capability, implementation, verifier, and evidence-bearing outcome.
+- [x] E02 Add visible GroX Mission flow from Commander intent through Pilot GorXu, Mission, Standing Crew, Mission Order, evidence, and verification.
+- [x] E03 Add concrete public examples from the real TEO `plan`/`finalize` lifecycle and GroX bounded Mission/reconstitution surfaces.
+- [x] E04 Pair examples with explicit evidence boundaries so reference capability, staged scope, experiments, and qualified operating state are not overclaimed.
+
+### P3 — Dedicated system pages and progressive depth
+
+- [x] M01 Add `/teo/` as an indexable technical overview with plain-language definition, native architecture, executable evidence, current state, and primary sources.
+- [x] M02 Add `/grox/` as an indexable technical overview with command spine, Mission flow, bounded evidence, current state, and primary sources.
+- [x] M03 Add `/evidence/` as a public evidence surface rather than forcing visitors directly from homepage copy into repository internals.
+- [x] M04 Keep the homepage as the portfolio-level orientation and route deeper detail to dedicated surfaces.
+
+### P4 — Claim-to-evidence public design pattern
+
+- [x] C01 Establish `Claim → Evidence → Boundary → Primary source` as a reusable public interface pattern.
+- [x] C02 Apply the pattern to both flagship systems and to the VESSAXOR site itself.
+- [x] C03 Keep primary repositories and canonical stewardship records authoritative; the portfolio does not become a parallel source of truth.
+
+### P5 — Discoverability and indexable surface
+
+- [x] D01 Expand the sitemap from one URL to the homepage plus TEO, GroX, and Evidence pages.
+- [x] D02 Give each new page a distinct title, description, canonical URL, Open Graph/Twitter metadata, and JSON-LD WebPage context.
+- [x] D03 Add strong internal linking among the homepage, system pages, evidence surface, and primary repositories.
+- [x] D04 Extend static validation to all public pages and their canonical/search surfaces.
+
+### Program 2 deployment gates
+
+- [x] G201 Exact branch-head GitHub Actions validation passes.
+- [x] G202 Full homepage desktop/mobile render review passes with no overflow, missing media, or hierarchy regression.
+- [x] G203 Dedicated TEO/GroX/Evidence layouts pass desktop and mobile overflow/media checks.
+- [ ] G204 GitHub Pages production deployment succeeds after merge.
+- [ ] G205 Post-deploy production smoke confirms all public pages and critical hero/banner assets resolve from the live Pages surface.
+
+### Program 2 current state
+
+**PR EVIDENCE PASS / PRODUCTION GATES OPEN — run #42 (`32005605691`) passed source refresh, visual synchronization, responsive media generation, four-page static validation, homepage desktop/mobile render capture, dedicated TEO/GroX/Evidence desktop/mobile layout checks, forced hero-fallback verification, and render-artifact upload. Production deployment and live post-deploy smoke remain gated on merge. Non-Chromium reproduction remains an explicit open evidence gap.**
