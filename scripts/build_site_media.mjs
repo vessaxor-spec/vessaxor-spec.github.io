@@ -8,6 +8,7 @@ const ROOT = new URL('../', import.meta.url).pathname;
 const VISUAL_DIR = join(ROOT, 'assets', 'visuals');
 const SOURCE_FILES = ['vessaxor-hero.png', 'teo-banner.png', 'grox-banner.png'];
 const WIDTHS = [720, 1200, 1800];
+const HERO_WIDTHS = [...WIDTHS, 2172];
 const CHROME_CANDIDATES = ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'];
 
 async function exists(path) {
@@ -150,8 +151,10 @@ async function main() {
       for (const file of SOURCE_FILES) {
         const stem = file.replace(/\.png$/, '');
         const image = sourcePayloads.get(file);
-        for (const width of WIDTHS) {
-          await capture(cdp, image, width, Math.round(width / 3), 'webp', 90, join(VISUAL_DIR, `${stem}-${width}.webp`));
+        const widths = file === 'vessaxor-hero.png' ? HERO_WIDTHS : WIDTHS;
+        const quality = file === 'vessaxor-hero.png' ? 96 : 90;
+        for (const width of widths) {
+          await capture(cdp, image, width, Math.round(width / 3), 'webp', quality, join(VISUAL_DIR, `${stem}-${width}.webp`));
         }
       }
       await capture(
