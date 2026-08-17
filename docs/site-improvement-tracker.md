@@ -92,10 +92,10 @@ Completion standard: implementation items may be marked complete when source cha
 - [x] R03 Add an explicit hero preload for the primary desktop WebP candidate without introducing a new runtime dependency.
 - [x] R04 Extend render validation to exercise the media error path and assert the fallback remains visible.
 - [x] R05 Add a post-deploy production smoke verifier for the homepage, new public pages, hero derivatives, PNG fallback, and flagship banners.
-- [ ] R06 Reproduce the reported intermittent hero failure in a non-Chromium browser engine. The runner-native Firefox path is now active without adding a browser or package dependency; the original failure remains unreproduced.
+- [x] R06 Resolve the non-Chromium evidence gap with a bounded Firefox reproduction matrix and ongoing regression gate. Outcome: the original intermittent failure was not reproduced; no root cause is claimed.
   - [x] R06a Add bounded cold-profile Firefox coverage on desktop/mobile using runner-provided Firefox + Geckodriver and Python standard library WebDriver calls.
   - [x] R06b PR #9 run #51 (`32037541384`) exercised Firefox 153.0.3 / Geckodriver 0.37.1 across 8 fresh alternating desktop/mobile sessions; all hero loads settled to `loaded` with the expected responsive WebP and no failure was reproduced.
-  - [ ] R06c Verify the same Firefox cold-load path against the deployed Pages surface after merge.
+  - [x] R06c Production run #53 (`32037887964`) exercised the deployed Pages hero across 4 fresh alternating desktop/mobile Firefox sessions; all loads settled to `loaded` with the expected 1800px/720px responsive WebP and no failure was reproduced.
 
 ### P1 — Outsider comprehension
 
@@ -146,8 +146,12 @@ Completion standard: implementation items may be marked complete when source cha
 - PR #7 was squash-merged to `main` as `e6581ae398d8b6d706d4b1b1d24fb2dd4dc34aa6`.
 - Production workflow run #48 (`32006382178`) passed validation, Pages artifact construction, render/reliability review, GitHub Pages deployment, and the new `verify-production` live smoke job.
 - The live smoke gate verified the deployed homepage, `/teo/`, `/grox/`, `/evidence/`, the hero 720/1200/1800 WebP derivatives, the approved hero PNG fallback, and the TEO/GroX flagship banner assets with bounded retries.
+- PR #9 exact-head runs #51 (`32037541384`) and #52 (`32037719822`) passed the new non-Chromium Firefox cold-profile matrix alongside the existing Chromium render/reliability checks.
+- PR #9 was squash-merged to `main` as `a605e0dc49145a0f83630f7e6aa35e7b8138173b`.
+- Production run #53 (`32037887964`) passed build, Chromium validation/render, Pages deployment, live HTTP smoke, and the deployed Firefox matrix. Firefox 153.0.3 / Geckodriver 0.37.1 loaded the live hero correctly in 4/4 fresh profiles; desktop selected `vessaxor-hero-1800.webp`, mobile selected `vessaxor-hero-720.webp`.
+- The original intermittent hero failure therefore remains unreproduced. The program closes the bounded investigation with continuous Firefox + Chromium regression coverage instead of asserting an unsupported root cause.
 - The external web-fetch tool could not independently fetch the GitHub Pages URL in this session; that tool-layer cache/safety failure is not treated as contrary production evidence. The governed GitHub Actions smoke test is the recorded production reachability evidence.
 
 ### Program 2 current state
 
-**DEPLOYED / FIREFOX R06 BRANCH EVIDENCE PASS — P1 through P5 and the P0 fail-visible/live-reachability controls are production-verified. PR #9 run #51 added the first non-Chromium browser evidence: 8/8 fresh Firefox 153.0.3 desktop/mobile sessions loaded the hero correctly, so the original intermittent failure was not reproduced. The remaining R06 step is production Firefox verification after merge; root cause remains unclaimed.**
+**CLOSED / CONTINUOUS REGRESSION COVERAGE — P0 through P5 and all deployment gates are complete and production-verified. The original intermittent hero failure was not reproduced under the bounded Firefox branch/production matrix, so no root cause is claimed. Chromium render/fail-visible checks, live HTTP smoke, and Firefox cold-profile checks now remain active as continuing regression controls.**
