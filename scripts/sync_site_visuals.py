@@ -15,17 +15,17 @@ VISUAL_DIR = ROOT / "assets" / "visuals"
 
 ASSETS = {
     "vessaxor-hero.png": {
-        "url": "https://raw.githubusercontent.com/vessaxor-spec/vessaxor-spec/main/assets/banner/vessaxor-hero-banner.png",
+        "url": "https://api.github.com/repos/vessaxor-spec/vessaxor-spec/contents/assets/banner/vessaxor-hero-banner.png?ref=main",
         "dimensions": (2172, 724),
         "sha256": "2945c2d9db9cc3cee1685ac6b3c4e8e8ca6c9aacfbce7d4e1ca8b6b22a677798",
     },
     "teo-banner.png": {
-        "url": "https://raw.githubusercontent.com/vessaxor-spec/The-ever-evolving-orchestration-/main/assets/banner/teo-banner-hd-optimized.png",
+        "url": "https://api.github.com/repos/vessaxor-spec/The-ever-evolving-orchestration-/contents/assets/banner/teo-banner-hd-optimized.png?ref=main",
         "dimensions": (2172, 724),
         "sha256": "6839a4b87d42f0e86104688e931e42e2aac065278b3403bc4e968051628fb2e7",
     },
     "grox-banner.png": {
-        "url": "https://raw.githubusercontent.com/vessaxor-spec/GroX/main/assets/banner/grox-banner-hd-optimized.png",
+        "url": "https://api.github.com/repos/vessaxor-spec/GroX/contents/assets/banner/grox-banner-hd-optimized.png?ref=main",
         "dimensions": (2172, 724),
         "sha256": "009a6f95c41ed1c20b2501cf8eff608da211563e846b842cd06995e9b94e0a05",
     },
@@ -45,10 +45,11 @@ def png_dimensions(payload: bytes) -> tuple[int, int]:
 def fetch(url: str) -> bytes:
     headers = {
         "User-Agent": "vessaxor-pages-visual-sync",
-        "Accept": "application/octet-stream",
+        "Accept": "application/vnd.github.raw+json",
+        "X-GitHub-Api-Version": "2022-11-28",
     }
     token = os.environ.get("GITHUB_TOKEN")
-    if token:
+    if token and "api.github.com" in url:
         headers["Authorization"] = f"Bearer {token}"
 
     last_error: Exception | None = None
