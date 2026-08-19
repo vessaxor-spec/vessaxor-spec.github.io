@@ -37,6 +37,7 @@ jobs:
       - name: Validate static portfolio
         run: |
           python3 scripts/validate_site.py
+          python3 scripts/validate_discovery_notes.py
           python3 -m py_compile scripts/verify_firefox_hero.py
           node --check app.js
           node --check scripts/build_site_media.mjs
@@ -102,6 +103,7 @@ jobs:
       - name: Validate static portfolio
         run: |
           python3 scripts/validate_site.py
+          python3 scripts/validate_discovery_notes.py
           python3 -m py_compile scripts/verify_firefox_hero.py
           node --check app.js
           node --check scripts/build_site_media.mjs

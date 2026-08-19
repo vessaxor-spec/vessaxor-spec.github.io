@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090c" />
+  <meta name="description" content="Technical notes on persistent AI systems, governed AI orchestration, bounded authority, evidence-bearing execution, verification, recovery, TEO, and GroX." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta property="og:title" content="Governed AI Architecture Notes — VESSAXOR" />
+  <meta property="og:description" content="Plain-language technical notes on persistent AI systems, governed orchestration, bounded authority, evidence, verification, and recovery." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://vessaxor-spec.github.io/notes/" />
+  <meta property="og:image" content="https://vessaxor-spec.github.io/assets/visuals/vessaxor-social-preview.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Governed AI Architecture Notes — VESSAXOR" />
+  <meta name="twitter:description" content="Persistent AI systems, governed orchestration, bounded authority, evidence, verification, and recovery." />
+  <meta name="twitter:image" content="https://vessaxor-spec.github.io/assets/visuals/vessaxor-social-preview.png" />
+  <link rel="canonical" href="https://vessaxor-spec.github.io/notes/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/visuals/vessaxor-favicon.svg" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Governed AI Architecture Notes",
+      "description": "Technical notes on persistent AI systems, governed orchestration, bounded authority, evidence-bearing execution, verification, and recovery.",
+      "dateModified": "2026-08-19",
+      "mainEntityOfPage": "https://vessaxor-spec.github.io/notes/",
+      "isPartOf": {"@type": "WebSite", "name": "VESSAXOR — Living Systems Lab", "url": "https://vessaxor-spec.github.io/"}
+    }
+  </script>
+  <title>Governed AI Architecture Notes — VESSAXOR</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" aria-label="Primary navigation">
+    <a class="wordmark" href="/" aria-label="VESSAXOR home">VESSAXOR</a>
+    <p class="header-note">Living Systems Lab</p>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Site navigation">
+      <a href="/">Home</a>
+      <a href="/teo/">TEO</a>
+      <a href="/grox/">GroX</a>
+      <a href="/evidence/">Evidence</a>
+      <a class="is-active" href="/notes/">Notes</a>
+      <a href="https://github.com/vessaxor-spec">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="main" class="page-shell">
+    <section class="page-masthead" aria-labelledby="page-title">
+      <div class="page-masthead-grid">
+        <div>
+          <p class="page-kicker">TECHNICAL NOTES</p>
+          <div class="page-meta"><span>Persistent systems · Governed orchestration · Verifiable execution</span></div>
+        </div>
+        <div>
+          <h1 id="page-title">Architecture above models, in plain technical language.</h1>
+          <p class="page-deck">These notes explain the design problem behind VESSAXOR, TEO, and GroX without requiring repository context first: how AI systems can keep authority, evidence, state, verification, and recovery stable while the models inside them change.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="persistent-ai" aria-labelledby="persistent-ai-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">01 / PERSISTENT AI SYSTEMS</p>
+        <div>
+          <h2 id="persistent-ai-title">A persistent AI system is more than a model session.</h2>
+          <p>A model can reason or generate output, but persistence belongs to the surrounding system: durable state, explicit authority, provenance, recovery rules, evidence, and a way to resume work without pretending a new session is the same execution context.</p>
+        </div>
+      </header>
+      <div class="definition-grid">
+        <article class="plain-definition">
+          <span class="source-label">PLAIN MEANING</span>
+          <h3>Keep the operating rules when the intelligence changes.</h3>
+          <p>The system should be able to replace or upgrade a model without silently changing who may act, what state survives, how results are verified, or what happens after failure.</p>
+        </article>
+        <article>
+          <span class="source-label">VESSAXOR DISCIPLINE</span>
+          <h3>Authority · Evidence · Continuity.</h3>
+          <p>These are treated as architecture concerns rather than model features. They are visible across both flagship systems even though TEO and GroX solve different problems.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="governed-orchestration" aria-labelledby="governed-orchestration-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">02 / GOVERNED AI ORCHESTRATION</p>
+        <div>
+          <h2 id="governed-orchestration-title">Routing should resolve responsibility before choosing a model.</h2>
+          <p>TEO is a vendor-neutral orchestration specification and runnable reference control plane. Its public control path separates responsibility, required capability, eligible implementation, and verification instead of treating provider selection as the first architectural decision.</p>
+        </div>
+      </header>
+      <div class="architecture-lane architecture-teo">
+        <ol class="flow-steps flow-steps-summary">
+          <li><span>01</span><strong>Responsibility</strong><em>Who is accountable for the work?</em></li>
+          <li><span>02</span><strong>Capability</strong><em>What does the work actually require?</em></li>
+          <li><span>03</span><strong>Implementation</strong><em>Which eligible route may perform it?</em></li>
+          <li><span>04</span><strong>Verification</strong><em>What evidence must exist before completion?</em></li>
+        </ol>
+      </div>
+      <div class="page-exit">
+        <a class="action action-primary" href="/teo/">Explore TEO →</a>
+        <a class="action" href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">TEO repository ↗</a>
+      </div>
+    </section>
+
+    <section class="page-section" id="bounded-execution" aria-labelledby="bounded-execution-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">03 / BOUNDED AI EXECUTION</p>
+        <div>
+          <h2 id="bounded-execution-title">Intent becomes durable action through an explicit command spine.</h2>
+          <p>GroX is a persistent AI command environment. Commander intent becomes a bounded Mission through one operational orchestrator, explicit Mission scope, Crew execution, attributable evidence, independent verification, durable state, and recovery controls.</p>
+        </div>
+      </header>
+      <div class="architecture-lane architecture-grox">
+        <ol class="flow-steps flow-steps-summary">
+          <li><span>01</span><strong>Commander intent</strong><em>Human objective and final authority.</em></li>
+          <li><span>02</span><strong>GorXu orchestration</strong><em>Interpret and route the Mission.</em></li>
+          <li><span>03</span><strong>Mission + Crew</strong><em>Execute inside bounded scope.</em></li>
+          <li><span>04</span><strong>Evidence + recovery</strong><em>Verify, persist, or recover without widening authority.</em></li>
+        </ol>
+      </div>
+      <div class="page-exit">
+        <a class="action action-primary" href="/grox/">Explore GroX →</a>
+        <a class="action" href="https://github.com/vessaxor-spec/GroX">GroX repository ↗</a>
+      </div>
+    </section>
+
+    <section class="page-section" id="evidence-bearing" aria-labelledby="evidence-bearing-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">04 / EVIDENCE-BEARING EXECUTION</p>
+        <div>
+          <h2 id="evidence-bearing-title">A plausible result is not the same as a verified result.</h2>
+          <p>VESSAXOR uses a public claim-to-evidence pattern so important statements can be inspected rather than merely asserted. The pattern is intentionally narrow: claim, evidence, boundary, primary source.</p>
+        </div>
+      </header>
+      <div class="claim-evidence">
+        <article>
+          <span>CLAIM</span>
+          <h3>State what the system is said to do.</h3>
+          <p>Keep the claim specific enough that evidence could disprove or qualify it.</p>
+        </article>
+        <article>
+          <span>EVIDENCE</span>
+          <h3>Point to the artifact, test, run, or control.</h3>
+          <p>Evidence should correspond to the claim actually being made.</p>
+        </article>
+        <article>
+          <span>BOUNDARY</span>
+          <h3>State what the evidence does not prove.</h3>
+          <p>Lab evidence, reference behavior, staged capability, and production behavior are not interchangeable states.</p>
+        </article>
+        <article>
+          <span>PRIMARY SOURCE</span>
+          <h3>Keep the repository authoritative.</h3>
+          <p>The portfolio explains and exposes evidence; it does not become a parallel source of system truth.</p>
+        </article>
+      </div>
+      <div class="page-exit">
+        <a class="action action-primary" href="/evidence/">Inspect public evidence →</a>
+      </div>
+    </section>
+
+    <section class="page-section" id="boundaries" aria-labelledby="boundaries-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">05 / BOUNDARIES</p>
+        <div>
+          <h2 id="boundaries-title">What these notes are not claiming.</h2>
+          <p>They do not claim that model capability creates authority, that a passing test proves every deployment environment, that reference implementation equals unrestricted live execution, or that persistence makes a system autonomous beyond its explicit command boundaries.</p>
+        </div>
+      </header>
+      <div class="definition-grid">
+        <article class="plain-definition">
+          <span class="source-label">DESIGN RULE</span>
+          <h3>Capability does not grant permission.</h3>
+          <p>More capable models can expand implementation options, but authority remains a separate system decision.</p>
+        </article>
+        <article>
+          <span class="source-label">EVIDENCE RULE</span>
+          <h3>Implementation is not completion.</h3>
+          <p>Consequential work needs checks, evidence, verification, and an explicit operating state before it should be represented as complete.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section" id="sources" aria-labelledby="sources-title">
+      <header class="page-section-heading">
+        <p class="page-kicker">06 / PRIMARY SURFACES</p>
+        <div>
+          <h2 id="sources-title">Follow the explanation back to the systems.</h2>
+          <p>The dedicated VESSAXOR pages provide the public translation layer. The repositories remain the canonical architecture, implementation, progress, roadmap, and evidence sources.</p>
+        </div>
+      </header>
+      <div class="source-links">
+        <a href="/teo/">TEO public overview →</a>
+        <a href="/grox/">GroX public overview →</a>
+        <a href="/evidence/">Evidence surface →</a>
+        <a href="https://github.com/vessaxor-spec/The-ever-evolving-orchestration-">TEO source ↗</a>
+        <a href="https://github.com/vessaxor-spec/GroX">GroX source ↗</a>
+        <a href="https://github.com/vessaxor-spec/vessaxor-spec.github.io">Portfolio source ↗</a>
+      </div>
+    </section>
+
+    <div class="page-exit">
+      <a class="action action-primary" href="/">Back to VESSAXOR</a>
+      <a class="action" href="/evidence/">Evidence →</a>
+    </div>
+  </main>
+
+  <footer class="site-footer"><p>VESSAXOR / TECHNICAL NOTES</p><p>Systems should outlive the models that happen to run them.</p></footer>
+  <script src="/app.js" defer></script>
+</body>
+</html>

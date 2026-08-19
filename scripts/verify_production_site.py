@@ -13,6 +13,7 @@ TARGETS = {
     "teo/": ("text/html", b"Who should do the work?"),
     "grox/": ("text/html", b"How does intent become durable action?"),
     "evidence/": ("text/html", b"Show what the claim rests on."),
+    "notes/": ("text/html", b"Architecture above models, in plain technical language."),
     "assets/visuals/vessaxor-hero-720.webp": ("image/webp", None),
     "assets/visuals/vessaxor-hero-1200.webp": ("image/webp", None),
     "assets/visuals/vessaxor-hero-1800.webp": ("image/webp", None),
