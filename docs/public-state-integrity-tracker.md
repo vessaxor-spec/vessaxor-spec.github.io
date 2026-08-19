@@ -60,7 +60,7 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
 - [x] D405 Recheck search discovery after the reciprocal links had an initial indexing interval. On 19 Aug 2026, exact searches for the VESSAXOR site, `VESSAXOR` + `Living Systems Lab`, TEO + VESSAXOR, and GroX + its exact public tagline still returned unrelated results rather than VESSAXOR surfaces. This is negative evidence of current discoverability, not proof that a particular search engine has never indexed the site.
 - [x] D406 Add a crawlable `/notes/` technical-notes surface using plain-language search terms for persistent AI systems, governed AI orchestration, bounded AI execution, evidence-bearing execution, verification, recovery, TEO, and GroX; link it from the existing Evidence surface and sitemap without creating a new source of system truth.
 - [x] D407 Require exact-head CI to validate the notes contract and desktop/mobile layout before merge.
-- [ ] D408 Require production build, deployment, live HTTP reachability, and existing deployed Firefox verification after merge. Production verification now additionally publishes exact-SHA commit status `vessaxor/pages-production`; D408 remains open until that status is observed green on `main`.
+- [x] D408 Require production build, deployment, live HTTP reachability, and existing deployed Firefox verification after merge. Production verification additionally publishes exact-SHA commit status `vessaxor/pages-production` so future deployment evidence remains directly observable through the connected GitHub API.
 - [ ] D409 Recheck external discovery after the technical-notes surface has had a meaningful indexing interval; keep this separate from D405 so a negative first recheck is not overwritten by later evidence.
 
 ### Program 4 evidence
@@ -71,7 +71,9 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
 - The 19 Aug 2026 external search recheck did not surface the VESSAXOR pages for four exact/near-exact discovery queries. D405 therefore records a completed negative checkpoint rather than claiming indexing success.
 - The GitHub connector was re-audited on 19 Aug 2026 for `topics` and `homepage` mutation capabilities; no writable repository About/topics/homepage or user-profile website action is exposed, so D404 remains capability-blocked.
 - PR #18 exact head `434db03997df6c7e0626e6c49601b90bbf14959a` passed run #77 (`32255044149`): public-state refresh, approved visual sync, responsive media generation, static validation, the dedicated technical-notes discovery contract, desktop/mobile layout checks including `/notes/`, hero reliability, eight Firefox cold-load sessions, and render-artifact publication.
-- PR #18 was squash-merged to `main` as `f014baec8f7b864b6df9bcf571a235a43b23d0e7`. The connected GitHub wrapper cannot enumerate push-triggered workflow runs by commit SHA, so a durable exact-SHA production receipt is being added rather than inferring D408 from missing run-list visibility.
+- PR #18 was squash-merged to `main` as `f014baec8f7b864b6df9bcf571a235a43b23d0e7`. The connected GitHub wrapper could not enumerate push-triggered workflow runs by commit SHA, so PR #19 added a durable exact-SHA production receipt rather than inferring D408 from missing run-list visibility.
+- PR #19 passed exact-head PR run #79 (`32256614197`) before squash merge as `bc2132e2dfaa57fbe8b693cdafb3460c08375f82`. Its production run #80 (`32256774833`) passed `build-pages`, full validation including the technical-notes contract and desktop/mobile layouts, GitHub Pages deployment, live page/media HTTP smoke including `/notes/`, deployed Firefox cold loads, and production-status publication.
+- Exact `main@bc2132e2dfaa57fbe8b693cdafb3460c08375f82` now exposes commit status `vessaxor/pages-production=success` with run #80 as its target. D408 is therefore evidence-backed without depending on push-run enumeration.
 
 ## Program 5 — Hero Delivery Quality
 
@@ -96,4 +98,4 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
 
 ## Current state
 
-**PROGRAM 3 CLOSED / PROGRAM 4 ACTIVE / PROGRAM 5 CLOSED — public-state integrity and hero delivery quality are production-qualified. D403 and D405–D407 are complete; D404 remains connector-capability blocked; D408 is the current exact-SHA production gate; D409 is the next time-dependent external indexing recheck.**
+**PROGRAM 3 CLOSED / PROGRAM 4 ACTIVE / PROGRAM 5 CLOSED — public-state integrity, hero delivery quality, reciprocal discovery paths, the technical-notes surface, and exact-SHA production verification are production-qualified. D404 remains connector-capability blocked. D409 is the only executable Program 4 item remaining and is intentionally time-dependent on a meaningful indexing interval.**
