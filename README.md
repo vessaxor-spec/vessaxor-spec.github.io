@@ -8,7 +8,7 @@ No analytics, trackers, cookies, remote fonts, external frontend frameworks, or 
 
 ## Improvement program
 
-The canonical implementation and evidence ledger is [`docs/site-improvement-tracker.md`](docs/site-improvement-tracker.md). It contains the closed senior-principal remediation program and the 17 Aug 2026 Public Surface Evolution program covering hero reliability, outsider comprehension, architecture/evidence visualization, dedicated system pages, claim-to-evidence design, and discoverability.
+The canonical implementation and evidence ledger is [`docs/site-improvement-tracker.md`](docs/site-improvement-tracker.md). Ongoing public-state, discoverability, and media-quality evidence is tracked in [`docs/public-state-integrity-tracker.md`](docs/public-state-integrity-tracker.md).
 
 ## Public surfaces
 
@@ -16,6 +16,7 @@ The canonical implementation and evidence ledger is [`docs/site-improvement-trac
 - `/teo/` — TEO technical overview, routing architecture, runnable evidence, boundaries, and primary sources
 - `/grox/` — GroX technical overview, command/Mission architecture, persistence/recovery evidence, boundaries, and primary sources
 - `/evidence/` — selected `Claim → Evidence → Boundary → Primary source` records across the public systems
+- `/notes/` — plain-language technical notes on persistent AI systems, governed orchestration, bounded execution, evidence-bearing verification, and recovery
 
 The repositories remain authoritative. These pages are explanatory and evidentiary public surfaces, not replacement sources of truth.
 
@@ -38,30 +39,32 @@ python3 scripts/generate_site_data.py
 python3 scripts/sync_site_visuals.py
 node scripts/build_site_media.mjs
 python3 scripts/validate_site.py
+python3 scripts/validate_discovery_notes.py
 node --check app.js
 ```
 
 `scripts/build_site_media.mjs` uses only Node built-ins plus the existing Chrome/Chromium runtime through the Chrome DevTools Protocol. It does not install npm packages, Python imaging libraries, or system packages.
 
-Validation covers all public pages, public state, source-banner identity, responsive media dimensions, duplicate IDs, internal anchors, image alt text, heading order, micro-type floor, accessible focus treatment, canonical/search surfaces, reliability fallback markup, and expected portfolio structure.
+Validation covers public state, source-banner identity, responsive media dimensions, duplicate IDs, internal anchors, image alt text, heading order, micro-type floor, accessible focus treatment, canonical/search surfaces, reliability fallback markup, the dedicated technical-notes discovery contract, and expected portfolio structure.
 
-Pull-request CI captures homepage desktop/mobile render screenshots, checks dedicated TEO/GroX/Evidence layouts at desktop and mobile widths, and exercises the fail-visible hero fallback path.
+Pull-request CI captures homepage desktop/mobile render screenshots, checks TEO/GroX/Evidence/Notes layouts at desktop and mobile widths, and exercises the fail-visible hero fallback plus Firefox cold-load paths.
 
 ## Reliability model
 
 The hero and flagship banners use responsive WebP delivery with approved PNG fallbacks. The hero additionally has an asset-independent HTML/CSS fallback so a media failure cannot reduce the primary visual surface to an empty black field. Client-side recovery removes failed responsive candidates, retries the approved PNG, then exposes the static fallback if media still cannot render.
 
-After Pages deployment, `scripts/verify_production_site.py` probes the live homepage, TEO/GroX/Evidence pages, hero derivatives, PNG fallback, and flagship banners with bounded retries. Build success therefore does not stand in for production asset reachability.
+After Pages deployment, `scripts/verify_production_site.py` probes the live homepage, TEO/GroX/Evidence/Notes pages, hero derivatives, PNG fallback, and flagship banners with bounded retries. Deployed Firefox cold loads run after the HTTP smoke test. The production verifier then publishes the exact-SHA commit status `vessaxor/pages-production`, so a green build cannot stand in for a verified deployment.
 
 ## Search discovery
 
 The site exposes a crawl/indexing foundation:
 
 - `robots.txt` permits public crawling and advertises the canonical sitemap
-- `sitemap.xml` lists the homepage plus dedicated TEO, GroX, and Evidence surfaces
-- every public page declares index/follow, a distinct canonical URL, descriptive title/description metadata, Open Graph/Twitter metadata, and JSON-LD context
+- `sitemap.xml` lists the homepage plus dedicated TEO, GroX, Evidence, and technical-notes surfaces
+- every public surface declares index/follow, a distinct canonical URL, descriptive title/description metadata, Open Graph/Twitter metadata, and JSON-LD context appropriate to the page
+- `/notes/` provides plain-language technical terms for persistent AI systems, governed AI orchestration, bounded execution, evidence-bearing execution, verification, and recovery while linking back to primary sources
 - Google Search Console ownership is retained through the root verification file
-- internal links connect the public overview, system explanations, evidence surface, and canonical GitHub repositories
+- internal links connect the public overview, system explanations, evidence surface, technical notes, and canonical GitHub repositories
 
 ## Public-state and media pipeline
 
@@ -72,8 +75,10 @@ The site exposes a crawl/indexing foundation:
 - build-synchronized source PNGs: `vessaxor-hero.png`, `teo-banner.png`, `grox-banner.png`
 - generated responsive media: 720/1200/1800 WebP derivatives plus PNG fallback
 - generated social media: 1200×630 VESSAXOR Open Graph preview
-- validation: `scripts/validate_site.py`
+- core validation: `scripts/validate_site.py`
+- discovery validation: `scripts/validate_discovery_notes.py`
 - render/reliability review: `scripts/capture_site_render.mjs`
 - production smoke: `scripts/verify_production_site.py`
+- production receipt: commit status `vessaxor/pages-production`
 - deployment: GitHub Pages via `.github/workflows/deploy-pages.yml`
 - pull requests: validation and render review only; Pages deployment remains restricted to non-PR events
