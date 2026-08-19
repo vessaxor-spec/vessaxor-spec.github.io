@@ -56,14 +56,20 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
   - GroX: strong description/topics, empty homepage field.
   - GitHub user profile: strong bio, empty website/blog field.
 - [x] D403 Add reciprocal public-overview links from TEO and GroX README entry surfaces after public-state integrity closes.
-- [ ] D404 Improve repository/profile About metadata where a governed write path is available. The connected GitHub capability was re-audited on 17 Aug 2026 and exposes read/search access for descriptions/topics but no mutation action for repository description, homepage, topics, or user-profile website; this remains a verified capability gap rather than an unattempted item.
-- [ ] D405 Recheck search discovery after reciprocal links and metadata changes have had time to be indexed; do not convert indexing delay into a false failure or success claim.
+- [ ] D404 Improve repository/profile About metadata where a governed write path is available. The connected GitHub capability was re-audited on 19 Aug 2026 and still exposes no mutation action for repository description, homepage, topics, or user-profile website; this remains a verified capability gap rather than an unattempted item.
+- [x] D405 Recheck search discovery after the reciprocal links had an initial indexing interval. On 19 Aug 2026, exact searches for the VESSAXOR site, `VESSAXOR` + `Living Systems Lab`, TEO + VESSAXOR, and GroX + its exact public tagline still returned unrelated results rather than VESSAXOR surfaces. This is negative evidence of current discoverability, not proof that a particular search engine has never indexed the site.
+- [x] D406 Add a crawlable `/notes/` technical-notes surface using plain-language search terms for persistent AI systems, governed AI orchestration, bounded AI execution, evidence-bearing execution, verification, recovery, TEO, and GroX; link it from the existing Evidence surface and sitemap without creating a new source of system truth.
+- [ ] D407 Require exact-head CI to validate the notes contract and desktop/mobile layout before merge.
+- [ ] D408 Require production build, deployment, live HTTP reachability, and existing deployed Firefox verification after merge.
+- [ ] D409 Recheck external discovery after the technical-notes surface has had a meaningful indexing interval; keep this separate from D405 so a negative first recheck is not overwritten by later evidence.
 
 ### Program 4 evidence
 
 - TEO PR #177 added exactly one `Public overview` link to `https://vessaxor-spec.github.io/teo/`; Reference Implementation CI run #772 (`32041919992`) passed repository layout, compilation, automated tests, regulated specialist evidence, JSON schemas, linked configuration, and the end-to-end example before merge as `4b4f07fc448b48c9b551e5ae759dd02cf1bb8d24`.
 - GroX PR #59 added exactly one `Public overview` link to `https://vessaxor-spec.github.io/grox/`; GroX CI run #160 (`32041926390`) passed Python 3.11–3.14 regression coverage, wheel-bootstrap portability, and the full Python 3.12 post-Apex experiment/mutation/integrated-qualification path before merge as `40e8234aecb23d5775e3c407b6ed19a054b35f84`.
 - Both flagship repositories therefore now link outward to their dedicated VESSAXOR public overview, while the portfolio already links back to the canonical repositories. This establishes reciprocal crawl/discovery paths without making the portfolio authoritative over either system.
+- The 19 Aug 2026 external search recheck did not surface the VESSAXOR pages for four exact/near-exact discovery queries. D405 therefore records a completed negative checkpoint rather than claiming indexing success.
+- The GitHub connector was re-audited on 19 Aug 2026 for `topics` and `homepage` mutation capabilities; no writable repository About/topics/homepage or user-profile website action is exposed, so D404 remains capability-blocked.
 
 ## Program 5 — Hero Delivery Quality
 
@@ -88,4 +94,4 @@ This ledger tracks the post–Public Surface Evolution maintenance work needed t
 
 ## Current state
 
-**PROGRAM 3 CLOSED / PROGRAM 4 PARTIALLY EXECUTED / PROGRAM 5 CLOSED — public-state integrity and hero delivery quality are production-qualified. D403 is complete and evidence-backed. D404 is blocked by the current GitHub connector's verified lack of metadata-write actions. D405 remains intentionally open until reciprocal links have had a meaningful indexing interval; immediate search results are not treated as proof of success or failure.**
+**PROGRAM 3 CLOSED / PROGRAM 4 ACTIVE / PROGRAM 5 CLOSED — public-state integrity and hero delivery quality are production-qualified. D403 is complete; D404 remains connector-capability blocked; D405 is a completed negative discovery checkpoint; D406 is implemented on the active branch; D407–D408 are the current merge/production gates; D409 is the next time-dependent external indexing recheck.**
