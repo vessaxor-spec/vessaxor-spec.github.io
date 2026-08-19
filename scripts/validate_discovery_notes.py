@@ -61,7 +61,7 @@ def main() -> None:
         'id="evidence-bearing"',
         'id="boundaries"',
         'id="sources"',
-        'Persistent AI systems',
+        'persistent AI systems',
         'GOVERNED AI ORCHESTRATION',
         'BOUNDED AI EXECUTION',
         'EVIDENCE-BEARING EXECUTION',
