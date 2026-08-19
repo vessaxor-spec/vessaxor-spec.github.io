@@ -6,7 +6,7 @@ import { join } from 'node:path';
 
 const TARGET = process.argv[2] ?? 'http://127.0.0.1:8000/';
 const CHROME_CANDIDATES = ['/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'];
-const PATHS = ['/', '/teo/', '/grox/', '/evidence/'];
+const PATHS = ['/', '/teo/', '/grox/', '/evidence/', '/notes/'];
 
 async function findChrome() {
   const { access } = await import('node:fs/promises');
